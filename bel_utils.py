@@ -8,6 +8,7 @@ import networkx as nx
 import re
 import StringIO
 import subprocess
+import os
 
 def get_source_format(network_summary):
     for prop in network_summary.get("properties"):
@@ -131,10 +132,11 @@ def getPredicateFull(p):
 def bel_script_to_rdf(bel_script):
     with open('tmp.bel', 'wt') as fh:
         fh.write(bel_script)
-    bel2rdf_path = 'bel2rdf.rb'
-    bel2rdf_cmd = "ruby %s --bel tmp.bel > tmp.rdf" % bel2rdf_path
+    bel2rdf_path = '/home/ec2-user/bin/bel2rdf.rb'
+    bel2rdf_cmd = "/usr/bin/ruby %s --bel tmp.bel > tmp.rdf" % bel2rdf_path
+    DEVNULL = open(os.devnull, 'wb')
     with open('tmp.rdf', 'wt') as fh:
-        subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=subprocess.STDOUT)
+        subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
 
     # change formatting from original bel2rdf output
     with open('tmp.rdf', 'rt') as fh:

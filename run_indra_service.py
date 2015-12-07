@@ -16,18 +16,29 @@ __author__ = 'dexter'
 # body
 
 import argparse
-from bottle import route, run, template, default_app, request, post, abort
+from bottle import route, run, template, default_app, request, post, abort,debug, Bottle
 import ndex.client as nc
 import json
 import bel_utils as bu
+import subprocess
+import pwd
+import os
 
 parser = argparse.ArgumentParser(description='run the indra service')
 
 parser.add_argument('--verbose', dest='verbose', action='store_const',
                     const=True, default=False,
                     help='verbose mode')
+parser.add_argument('--debug', dest='debug', action='store_const',
+                    const=True, default=False,
+                    help='debug mode')
+
 
 arg = parser.parse_args()
+
+if arg.debug:
+    print "Debug mode engaged"
+    debug()
 
 if arg.verbose:
     print "Starting indra service in verbose mode"
@@ -40,15 +51,18 @@ app.config['verbose'] = arg.verbose
 app.config['ndex'] = nc.Ndex()
 
 
-
-
-@route('/hello')
+@route('/hello/<name>')
 def index(name):
     verbose_mode = app.config.get("verbose")
     if verbose_mode:
-        return template('<b>This is the test method saying Hello verbosely</b>!', name=name)
+        return template('<b>This is the test method saying Hello, {{name}} verbosely</b>!', name=name)
     else:
-        return template('<b>Hello</b>!', name=name)
+        return template('<b>Hello {{name}}</b>!', name=name)
+
+@route('/ruby_info')
+def inf():
+   out= subprocess.check_output(["gem", "list"])
+   return template(out)
 
 # GET the network summary
 @route('/network/<networkId>')
@@ -88,4 +102,4 @@ def run_bel_rdf_query(network_id):
     rdf = bu.bel_script_to_rdf(bel_script)
     return rdf
 
-run(app, host='localhost', port=5602)
+run(app, host='0.0.0.0', port=80)

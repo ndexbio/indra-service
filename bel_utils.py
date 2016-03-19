@@ -133,7 +133,7 @@ def bel_script_to_rdf(bel_script):
     with open('tmp.bel', 'wt') as fh:
         fh.write(bel_script)
     bel2rdf_path = '/home/dwelker/.gem/ruby/2.0.0/bin/bel2rdf.rb'
-    bel2rdf_cmd = "/usr/bin/ruby %s --bel tmp.bel > tmp.rdf" % bel2rdf_path
+    bel2rdf_cmd = "/usr/bin/ruby2.0 %s --bel tmp.bel > tmp.rdf" % bel2rdf_path
     DEVNULL = open(os.devnull, 'wb')
     with open('tmp.rdf', 'wt') as fh:
         subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)

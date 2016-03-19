@@ -222,13 +222,22 @@ class NetworkWrapper:
         else:
             return None
 
+    def determineTermType(self, term):
+        if 'name' in term and 'namespaceId' in term:
+            return 'baseterm'
+        elif 'functionTermId' in term and 'parameterIds' in term:
+            return 'functionterm'
+        else:
+            return 'reifiededgeterm'
+
+
     def getTermLabel(self, termId):
         if termId in self.termLabelMap:
             return self.termLabelMap[termId]
         else:
             label = "error"
             term = self.getTermById(termId)
-            type = term['type'].lower()
+            type = self.determineTermType(term)
             if type == "baseterm":
                 name = term['name']
                 if 'namespaceId' in term and term['namespaceId']:

@@ -1,0 +1,1299 @@
+#Properties section
+SET DOCUMENT Name = "NDEx query result in BEL script"
+SET DOCUMENT Description = "Query with ndex-python-client, one step neighborhood"
+
+# Definitions Section
+DEFINE NAMESPACE MESHD AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-diseases.belns"
+DEFINE NAMESPACE GOCCACC AS URL "http://resource.belframework.org/belframework/1.0/namespace/go-cellular-component-accession-numbers.belns"
+DEFINE NAMESPACE MGI AS URL "http://resource.belframework.org/belframework/1.0/namespace/mgi-approved-symbols.belns"
+DEFINE NAMESPACE SDIS AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-diseases.belns"
+DEFINE NAMESPACE GO AS URL "http://resource.belframework.org/belframework/1.0/namespace/go-biological-processes-names.belns"
+DEFINE NAMESPACE RGD AS URL "http://resource.belframework.org/belframework/1.0/namespace/rgd-approved-symbols.belns"
+DEFINE NAMESPACE MESHPP AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-biological-processes.belns"
+DEFINE NAMESPACE SCHEM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-chemical-names.belns"
+DEFINE NAMESPACE EGID AS URL "http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns"
+DEFINE NAMESPACE NCR AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-complexes.belns"
+DEFINE NAMESPACE MESHCL AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-cellular-locations.belns"
+DEFINE NAMESPACE PFH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE PFM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-protein-families.belns"
+DEFINE NAMESPACE NCH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns"
+DEFINE NAMESPACE NCM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-complexes.belns"
+DEFINE NAMESPACE CHEBI AS URL "http://resource.belframework.org/belframework/1.0/namespace/chebi-names.belns"
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE PFR AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-protein-families.belns"
+DEFINE ANNOTATION RespiratorySystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-respiratory-system.belanno"
+DEFINE ANNOTATION CellStructure AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cell-structure.belanno"
+DEFINE ANNOTATION BodyRegion AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-body-region.belanno"
+DEFINE ANNOTATION Cell AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cell.belanno"
+DEFINE ANNOTATION UrogenitalSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-urogenital-system.belanno"
+DEFINE ANNOTATION HemicAndImmuneSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-hemic-and-immune-system.belanno"
+DEFINE ANNOTATION CellLine AS URL "http://resource.belframework.org/belframework/1.0/annotation/atcc-cell-line.belanno"
+DEFINE ANNOTATION FluidAndSecretion AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-fluid-and-secretion.belanno"
+DEFINE ANNOTATION CardiovascularSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cardiovascular-system.belanno"
+DEFINE ANNOTATION Disease AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-disease.belanno"
+DEFINE ANNOTATION IntegumentarySystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-integumentary-system.belanno"
+DEFINE ANNOTATION NervousSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-nervous-system.belanno"
+DEFINE ANNOTATION DigestiveSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-digestive-system.belanno"
+DEFINE ANNOTATION Tissue AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-tissue.belanno"
+DEFINE ANNOTATION Species AS URL "http://resource.belframework.org/belframework/1.0/annotation/species-taxonomy-id.belanno"
+
+#Statements section
+
+SET STATEMENT_GROUP = "Group pmid:11713256"
+SET Citation = {"PubMed","J Biol Chem 2002 Jan 25 277(4) 2997-3005","11713256"}
+
+
+SET Evidence = "Because SRC-1 appears to act together with CBP/p300 to induce SP-A promoter activity, these findings suggest that PKA-mediated phosphorylation may enhance TTF-1 transcriptional activity by facilitating recruitment of CBP and SRC-1 to the SP-A promoter."
+
+proteinabundance(EGID:653509) increases rnaabundance(HGNC:EP300)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15951563"
+SET Citation = {"PubMed","J Biol Chem 2005 Aug 19 280(33) 29728-42","15951563"}
+
+
+SET Evidence = "Cyclin D1 inhibits histone acetyltransferase activity of p300 in vitro."
+
+proteinabundance(HGNC:CCND1) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "Here we show that cyclin D1 physically interacts with p300 and represses p300 transactivation."
+
+proteinabundance(HGNC:CCND1) decreases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10436023"
+SET Citation = {"PubMed","Mol Biol Cell 1999 Aug 10(8) 2703-34","10436023"}
+
+
+SET Evidence = "<h5> p300 binds to the transactivation domain of E2F1 (Lee et al., 1998a). E2F1 and p53 may be reciprocally regulated by their mutual dependence on coactivation by limiting amounts of p300 (Lee et al., 1998a)."
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:E2F1))
+
+SET Evidence = "<p24> P300 coactivates P53-activated promotors, including p21, Bax, and Mdm2. <p25> P300 binds the transactivation domain in the Nterminal region of p53 - this interaction is involved in the coactivation of p53 by p300"
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TP53))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15123817"
+SET Citation = {"PubMed","Proc Natl Acad Sci U S A 2004 May 11 101(19) 7386-91","15123817"}
+
+
+SET Evidence = "In this report, we show that the E1A-binding p300 nucleoprotein is a key determinant of p53-dependent cell fate in colorectal cancer cells: absence of p300 increases apoptosis in response to DNA damage."
+
+proteinabundance(HGNC:EP300) decreases biologicalprocess(MESHPP:Apoptosis)
+
+SET Evidence = "In addition, p300-deficient (p300(-)) cells fail to undergo G(1)/S arrest after UV irradiation. These abnormalities are associated with prolongation of p53 stability, reduced p53-acetylation, blunting of MDM2 activation, failure to transactivate p21, and a disproportionate increase in PUMA levels."
+
+proteinabundance(HGNC:EP300) increases catalyticactivity(proteinabundance(HGNC:MDM2))
+proteinabundance(HGNC:EP300) increases proteinabundance(HGNC:CDKN1A)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15965232"
+SET Citation = {"PubMed","J Biol Chem 2005 Aug 26 280(34) 30604-10","15965232"}
+
+
+SET Evidence = "p300, but not its acetylase-defective mutant AT2, stimulated p63gamma-dependent transcription and induction of p21 in cells, consequently leading to G1 arrest. Inversely, the deltaN-p63gamma isoform as well as p300AT2 inhibited the induction of p21 by p63gamma. These results suggest that p300 regulates p63-dependent transcription of p21."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:TP63))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12697832"
+SET Citation = {"PubMed","Mol Cell Biol 2003 May 23(9) 3339-51","12697832"}
+
+
+SET Evidence = "The effect of p300 on the OC promoter is independent of its intrinsic HAT activity, as a HAT-deficient p300 mutant protein up-regulates expression and cooperates with P/CAF to the same extent as the wild-type p300."
+
+complexabundance(proteinabundance(RGD:Ep300),proteinabundance(RGD:Pcaf)) increases transcriptionalactivity(proteinabundance(RGD:Vdr))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15138260"
+SET Citation = {"PubMed","J Biol Chem 2004 Jul 9 279(28) 29409-17","15138260"}
+
+
+SET Evidence = "The extent of the acetylation is up-regulated by the transforming growth factor-beta signaling pathway and down-regulated by histone deacetylase activities."
+
+catalyticactivity(proteinabundance(PFH:HDAC Family)) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15145939"
+SET Citation = {"PubMed","J Biol Chem 2004 Jul 23 279(30) 31105-12","15145939"}
+
+
+SET Evidence = "Transcriptional activation by signal transducer and activator of transcription 6 (STAT6) has been shown to require the direct interaction not only with co-activators such as p300 and cAMP-responsive element-binding protein-binding protein (CBP) but also with nuclear co-activator 1, a member of the p160/steroid receptor co-activator family. Among the p160/steroid receptor co-activators, only p/CIP (nuclear co-activator 3) has been shown to be up-regulated by interleukin (IL)-4 in B cells through a STAT-6-dependent mechanism using Gene-Chip analysis. In this study, we have investigated the function of p/CIP in the transcriptional activation by STAT6. We found that p/CIP indirectly interacted with STAT6 via p300, and overexpression of the CBP-interacting domain of p/CIP (p/CIP(947-1084)) prevented the interaction of p/CIP with STAT6 by blocking the binding of p/CIP to p300. Whereas expression of p/CIP(947-1084) resulted in a marked reduction of STAT6-mediated transactivation, overexpression of wild type p/CIP resulted in significant enhancement of it. In addition, p/CIP(947-1084) markedly reduced CD23 expression on B cells stimulated with IL-4, whereas overexpression of wild type p/CIP enhanced it. Chromatin immunoprecipitations demonstrate that IL-4 increases the interaction of p/CIP with the murine immunoglobulin heavy chain germ line epsilon promoter in B cells. These results suggest that p/CIP positively regulates STAT6 transcriptional activation through formation of a STAT6, p300/CBP, and p/CIP complex."
+
+complexabundance(proteinabundance(MGI:Stat6),proteinabundance(MGI:Ncoa1),proteinabundance(MGI:Ep300)) increases transcriptionalactivity(proteinabundance(MGI:Stat6))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11748222"
+SET Citation = {"PubMed","J Biol Chem 2002 Mar 1 277(9) 7029-36","11748222"}
+
+
+SET Evidence = "Our results show that both CBP/p300 and p300/CBP-associated factor (PCAF) enhance FKLF2 transcriptional activity"
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:KLF13))
+
+SET Evidence = "Modified assertion"
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:KLF13))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16633365"
+SET Citation = {"PubMed","Nat Rev Cancer 2006 May 6(5) 369-81","16633365"}
+
+
+SET Evidence = "In conjunction with SKP2, the SCF complex targets p27 , p21 and p57 CKIs for degradation (FIG. 4). To date, it has also been reported that SKP2 targets p130, cyclin A, cyclin D1, free cyclin E, E2F1, ORC1, CDT1, CDK9, MYC, B-MYB, SMAD4, RAG2, UBP43, FOXO1 and papillomavirus E7 (reviewed in REF. 8)."
+
+catalyticactivity(proteinabundance(HGNC:SKP2)) decreases proteinabundance(HGNC:RBL2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:17220375"
+SET Citation = {"PubMed","Am J Physiol Lung Cell Mol Physiol 2007 May 292(5) L1219-26","17220375"}
+
+
+SET Evidence = "These data suggest that in response to LPS, YY1 dissociates from p300 and binds to the COX-2 promoter, contributing to COX-2 expression in an inflammatory milieu."
+
+abundance(CHEBI:lipopolysaccharide) decreases complexabundance(proteinabundance(HGNC:YY1),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12732631"
+SET Citation = {"PubMed","J Biol Chem 2003 Jul 18 278(29) 27224-9","12732631"}
+
+
+SET Evidence = "Sox9 associates with CBP/p300"
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:SOX9))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15184363"
+SET Citation = {"PubMed","J Biol Chem 2004 Aug 6 279(32) 33799-805","15184363"}
+
+
+SET Evidence = "Contrary to the corepressors, the p160 NR coactivators bind to liganded NRs to mediate transcriptional activation through recruitment of histone acetyltransferases (10). The p160 coactivators include SRC-1 (11), GRIP1/TIF2 (12-14), and RAC3/ACTR/AIB1/pCIP/TRAM-1 (15-19). These coactivators also interact with histone acetyltransferases such as CREB-binding protein/p300 and P/CAF (22,23), tethering histone acetyltransferase activity to target promoters."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:NR3C2))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:PGR))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:NR3C2))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:PGR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12764024"
+SET Citation = {"PubMed","Circ Res 2003 Jun 27 92(12) 1288-95","12764024"}
+
+
+SET Evidence = "The simultaneous requirement for two distinct and independent DNA elements suggests that Smads and activator protein-1 functionally cooperate through CBP/p300 to mediate TGF-beta-induced transcriptional activation of the ET-1 gene."
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:SMAD3))
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:SMAD4))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15212693"
+SET Citation = {"PubMed","BMC Bioinformatics 2004 Jun 22 5 79","15212693"}
+
+
+SET Evidence = "11042701;11157749"
+
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,973))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,639))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,982))
+
+SET Evidence = "12379484;11020388;12590608;15006641"
+
+kinaseactivity(proteinabundance(HGNC:PRKCA)) directlyIncreases proteinabundance(HGNC:EP300,proteinmodification(P,S,89))
+kinaseactivity(proteinabundance(HGNC:PRKCD)) directlyIncreases proteinabundance(HGNC:EP300,proteinmodification(P,S,89))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15224190"
+SET Citation = {"PubMed","Cell Mol Life Sci 2004 Jul 61(13) 1675-83","15224190"}
+
+
+SET Evidence = "In addition, Akt interacts with the coactivator and the activity of Akt is required to maintain the steady-state level of p300."
+
+kinaseactivity(proteinabundance(PFH:AKT Family)) increases rnaabundance(HGNC:EP300)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10619020"
+SET Citation = {"PubMed","Mol Cell 1999 Nov 4(5) 725-34","10619020"}
+
+
+SET Evidence = "They are both required for MyoD activity and muscle differentiation."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:MYOD1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15225871"
+SET Citation = {"PubMed","Gene 2004 Jul 7 336(1) 1-13","15225871"}
+
+
+SET Evidence = "The interaction of RB and E2F transcription factors represents a functional interaction that has been the predominant focus in the field. RB and the related family members p107 and p130 can each bind E2F to repress genes that are otherwise important for progression from G1 to S phase. The binding of RB, p107, or p130 has two simultaneous consequences: (1) binding prevents E2F from interacting with transcriptional co-activators (e.g., p300); and (2) binding recruits chromatin-modifying enzymes [e.g., histone deacetylases (HDACs)] to silence transcription. E2F itself is a family of transcription factors that include six E2F and three DP proteins, which together form the heterodimeric complex that comprises E2F transcriptional activity (reviewed in Trimarchi and Lees, 2002 and Yee and Wang, 2003). While there is considerable complexity, gene repression in G1 phase utilizes RB and E2Fs 1, 2, 3, and 4, while gene repression in G0 utilizes primarily p130 and E2Fs 4 and 5. binding prevents E2F from interacting with transcriptional co-activators (e.g., p300); and"
+
+proteinabundance(MGI:Rbl1) decreases catalyticactivity(proteinabundance(MGI:Ep300))
+proteinabundance(MGI:Rbl2) decreases catalyticactivity(proteinabundance(MGI:Ep300))
+complexabundance(proteinabundance(MGI:E2f4),proteinabundance(MGI:Rbl2)) increases catalyticactivity(proteinabundance(PFM:Hdac Family))
+complexabundance(proteinabundance(MGI:E2f4),proteinabundance(MGI:Rbl2)) decreases transcriptionalactivity(proteinabundance(PFM:E2f Family))
+complexabundance(proteinabundance(MGI:E2f4),proteinabundance(MGI:Rbl2)) increases catalyticactivity(proteinabundance(PFM:Hdac Family))
+proteinabundance(MGI:Rb1) decreases catalyticactivity(proteinabundance(MGI:Ep300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11884404"
+SET Citation = {"PubMed","J Biol Chem 2002 May 10 277(19) 16906-12","11884404"}
+
+
+SET Evidence = "both CBP and p300 are indispensable for the full activation of PPARgamma and adipocyte differentiation and that CBP and p300 do not mutually complement in the process."
+
+proteinabundance(MGI:Ep300) increases transcriptionalactivity(proteinabundance(MGI:Pparg))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11902584"
+SET Citation = {"PubMed","Nat Rev Cancer 2002 Jan 2(1) 38-47","11902584"}
+
+
+SET Evidence = "stabilized HIF1A is translocated to the nucleus, where it interacts with cofactors such as ARNT, CBP/p300 and the DNA polymerase II complex to bind to hypoxia-responsive elements and activate transcription of target genes"
+
+transcriptionalactivity(proteinabundance(HGNC:HIF1A)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11903046"
+SET Citation = {"PubMed","Biochem J 2002 Apr 1 363(Pt 1) 53-8","11903046"}
+
+
+SET Evidence = "These data indicate that c-Jun, when activated or overexpressed, is recruited to the H ferritin promoter by p300, which links NFY, bound to DNA, to the complex"
+
+
+SET Evidence = "c-Jun, when activated or overexpressed, is recruited to the H ferritin promoter by p300, which links NFY, bound to DNA, to the complex."
+
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11923478"
+SET Citation = {"PubMed","Mol Endocrinol 2002 Apr 16(4) 824-36","11923478"}
+
+
+SET Evidence = "IL6-inducible expression of the AGT promoter is mediated by physical association of the COOH terminus of STAT3 with p300/CBP, the recruitment of which targets histone acetylation and results in chromatin remodeling"
+
+proteinabundance(HGNC:IL6) increases complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:CREB1),proteinabundance(HGNC:STAT3))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11931769"
+SET Citation = {"PubMed","Mol Cell 2002 Mar 9(3) 625-36","11931769"}
+
+
+SET Evidence = "Our results demonstrate that phosphorylation of p65 determines whether it associates with either CBP or HDAC-1, ensuring that only p65 entering the nucleus from cytoplasmic NF-kappa B:Ikappa B complexes can activate transcription."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(complexabundance(NCH:Nfkb Complex))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11940655"
+SET Citation = {"PubMed","Mol Cell Biol 2002 May 22(9) 2974-83","11940655"}
+
+
+SET Evidence = "Surprisingly, NAP-1 potently inhibited acetylation of core histones by p300, suggesting that efficient assembly requires acetylation of either NAP-1 or p300 itself."
+
+proteinabundance(HGNC:NAP1L1) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "In that study RbAp46 and RbAp48 were found  to potentiate transcription via p300 by enhancing histone acetylation on a  chromatin template"
+
+proteinabundance(HGNC:RBBP4) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+proteinabundance(HGNC:RBBP7) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:9880483"
+SET Citation = {"PubMed","J Biol Chem 1999 Jan 15 274(3) 1189-92","9880483"}
+
+
+SET Evidence = "p300 specifically acetylates all sites of histones H2A and H2B known to be acetylated in bulk chromatin in vivo but preferentially acetylates lysines 14 and 18 of histone H3 and lysines 5 and 8 of histone H4."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H3 Family,proteinmodification(A,K,14))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H3 Family,proteinmodification(A,K,18))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H2B Family,proteinmodification(A))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H3 Family,proteinmodification(A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12851464"
+SET Citation = {"PubMed","Physiol Genomics 2003 Sep 29 15(1) 9-19","12851464"}
+
+
+SET Evidence = "Fibrate class hypolipidemic drugs such as ciprofibrate activate the peroxisome proliferator-activated receptor-alpha (PPARalpha), which is involved in processes including lipid metabolism and hepatocyte proliferation in rodents. We examined the effects of ciprofibrate (50 mg/kg body wt per day for 60 days) on liver gene expression in rats using cDNA microarrays. The 60-day dosing period was chosen to elucidate both the metabolic and proliferative actions of this substance, while avoiding confounding effects from the hepatic carcinogenesis seen during more long-term stimulation. Ciprofibrate changed the expression of many genes including previously known PPARalpha agonist-responsive genes involved in processes such as lipid metabolism and inflammatory responses. In addition, many novel candidate genes involved in sugar metabolism, transcription, signal transduction, cell proliferation, and stress responses appeared to be differentially regulated in ciprofibrate-dosed rats. Ciprofibrate also resulted in significant increases in liver weight and hepatocyte proliferation. The cDNA microarray results were confirmed by Northern blot analysis for selected genes. This study thus identifies many genes that appear to be differentially regulated in ciprofibrate-dosed rats, and some of these are potential targets of PPARalpha. The functional diversity of these candidate genes suggests that most of them are likely to be differentially regulated as indirect consequence of the many processes affected by ciprofibrate in rodent liver. Although caution is advisable in the interpretation of genome-wide expression data, the genes identified in the present study provide candidates for further studies that may give new insight into the mechanisms of action of peroxisome proliferators."
+
+abundance(CHEBI:ciprofibrate) increases rnaabundance(RGD:Rbl2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15140884"
+SET Citation = {"PubMed","J Biol Chem 2004 Jun 4 279(23) 24873-80","15140884"}
+
+
+SET Evidence = "A recent work has shown that NFkB-dependent transcription requires the function of transcriptional coactivator proteins (10 12). The CBP and its homologue, p300, are coactivators that interact with the p65 subunit of NFkB to enhance its ability to activate transcription."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(complexabundance(NCH:Nfkb Complex))
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:NFKB1),proteinabundance(HGNC:RELA)) directlyIncreases transcriptionalactivity(complexabundance(proteinabundance(HGNC:NFKB1),proteinabundance(HGNC:RELA)))
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:RELA)) increases transcriptionalactivity(complexabundance(proteinabundance(HGNC:NFKB1),proteinabundance(HGNC:RELA)))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12857754"
+SET Citation = {"PubMed","J Biol Chem 2003 Sep 19 278(38) 36959-65","12857754"}
+
+
+SET Evidence = "Transcriptional activation by CEBPalpha and CEBPbeta involves the coactivators CREB-binding protein (CBP) and p300, which promote transcription by acetylating histones and recruiting basal transcription factors."
+
+transcriptionalactivity(proteinabundance(RGD:Ep300)) increases transcriptionalactivity(proteinabundance(RGD:Cebpa))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10898786"
+SET Citation = {"PubMed","Genes Dev 2000 Jul 15 14(14) 1712-28","10898786"}
+
+
+SET Evidence = "CBP and p300 are highly related proteins that act as cofactors for many transcription factors, including the nuclear hormone receptors, Myb and CREB"
+
+complexabundance(proteinabundance(MGI:Ep300),proteinabundance(MGI:Myb)) increases transcriptionalactivity(proteinabundance(MGI:Myb))
+
+SET Evidence = "E1A acting to partition CBP p300 from Mitf and thereby reduce its ability to activate transcription."
+
+complexabundance(proteinabundance(MGI:Ep300),proteinabundance(MGI:Mitf)) directlyIncreases transcriptionalactivity(proteinabundance(MGI:Mitf))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10779504"
+SET Citation = {"PubMed","J Biol Chem 2000 Jul 7 275(27) 20853-60","10779504"}
+
+
+SET Evidence = "p300 and p300/cAMP-response element-binding protein acetylated the AR at a highly conserved lysine-rich motif carboxyl-terminal to the zinc finger DNA-binding domain. [(14)C]acetate-labeling experiments demonstrated that AR acetylation by p300 in cultured cells requires the same residues identified in vitro. Point mutation of the AR acetylation site (K632A/K633A) abrogated dihydrotestosterone-dependent transactivation of the AR in cultured cells."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:AR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11971970"
+SET Citation = {"PubMed","Mol Cell Biol 2002 May 22(10) 3373-88","11971970"}
+
+
+SET Evidence = "acetylation-deficient AR mutants were selectively defective in DHT-induced trans activation of androgen-responsive reporter genes and coactivation by SRC1, Ubc9, TIP60, and p300."
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:17476304"
+SET Citation = {"PubMed","EMBO J 2007 Jun 20 26(12) 2880-9","17476304"}
+
+
+SET Evidence = "stimulate gene expression by promoting the phosphorylation of CREB (P-CREB), thereby enhancing its association with the histone acetylase paralogs p300 and CBP (CBP/p300)"
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:CREB1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15295102"
+SET Citation = {"PubMed","Proc Natl Acad Sci U S A 2004 Aug 17 101(33) 12165-70","15295102"}
+
+
+SET Evidence = "We show that YY1 disrupts the interaction between p53 and the coactivator p300 and that expression of YY1 blocks p300-dependent acetylation and stabilization of p53."
+
+proteinabundance(HGNC:YY1) directlyDecreases complexabundance(proteinabundance(HGNC:TP53),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11983685"
+SET Citation = {"PubMed","J Biol Chem 2002 Jul 19 277(29) 26031-5","11983685"}
+
+
+SET Evidence = "Here it is shown that CARM1 binds to beta-catenin and can function in synergy with beta-catenin and p300 as coactivators for AR."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:AR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10801418"
+SET Citation = {"PubMed","Curr Biol 2000 Apr 20 10(8) 467-70","10801418"}
+
+
+SET Evidence = "Using an antibody raised against an acetylated Rch1 peptide, we show that Rch1 was acetylated at Lys22 in vivo and that CBP or p300 could mediate this reaction Acetylation of Lys22 promoted interaction with importin-beta in vitro"
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transportactivity(proteinabundance(HGNC:KPNA2))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10825149"
+SET Citation = {"PubMed","Cancer Res 2000 May 15 60(10) 2737-44","10825149"}
+
+
+SET Evidence = "Modified assertion"
+
+proteinabundance(HGNC:RBL2) increases proteinabundance(HGNC:CCNE1)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16319895"
+SET Citation = {"PubMed","Nature 2005 Dec 1 438(7068) 690-5","16319895"}
+
+
+SET Evidence = "Here we show that two APC/C components, APC5 and APC7, interact directly with the coactivators CBP and p300 through protein-protein interaction domains that are evolutionarily conserved in adenovirus E1A. This interaction stimulates intrinsic CBP/p300 acetyltransferase activity and potentiates CBP/p300-dependent transcription."
+
+proteinabundance(HGNC:ANAPC7) increases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15133024"
+SET Citation = {"PubMed","J Biol Chem 2004 Jul 16 279(29) 30474-9","15133024"}
+
+
+SET Evidence = "Moreover, we observed that expression of dominant-interfering mutants of MSK1 blocked the binding of Smad3 to the coactivator p300 in response to TGF-beta signaling."
+
+proteinabundance(PFH:TGFB Family) increases complexabundance(proteinabundance(HGNC:SMAD3),proteinabundance(HGNC:EP300))
+proteinabundance(PFH:TGFB Family) increases complexabundance(proteinabundance(HGNC:SMAD3),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12917345"
+SET Citation = {"PubMed","Mol Cell Biol 2003 Sep 23(17) 6243-54","12917345"}
+
+
+SET Evidence = "# Ariadne: As  shown above (Fig. 5C ), expression of wild-type ER81 in the presence of p300 or  P/CAF resulted in significant levels of MMP-1 mRNA, detectable in our RT-PCR  analyses (Fig. 8C ). [Expression]"
+
+
+SET Evidence = "Furthermore, oncogenic HER2/Neu, which induces phosphorylation and thereby activation of ER81, was less able to activate acetylation-deficient ER81 mutants, indicating that both acetyltransferase and protein kinase-specific regulatory mechanisms control ER81 activity. Importantly, HER2/Neu overexpression stimulates the ability of p300 to acetylate ER81, likely by inducing phosphorylation of p300 through the Ras-->Raf-->mitogen-activated protein kinase pathway."
+
+kinaseactivity(proteinabundance(HGNC:ERBB2)) increases catalyticactivity(proteinabundance(HGNC:EP300))
+kinaseactivity(proteinabundance(HGNC:MAPK1)) increases catalyticactivity(proteinabundance(HGNC:EP300))
+kinaseactivity(proteinabundance(HGNC:MAPK3)) increases catalyticactivity(proteinabundance(HGNC:EP300))
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:ETV1))
+
+SET Evidence = "HER2/Neu overexpression stimulates the ability of p300 to acetylate ER81, likely by inducing phosphorylation of p300 through the Ras--Raf--mitogen-activated protein kinase pathway."
+
+kinaseactivity(proteinabundance(HGNC:RAF1)) increases proteinabundance(HGNC:EP300,proteinmodification(P))
+
+SET Evidence = "Here, we demonstrate that ER81 is acetylated by two coactivators/acetyltransferases, p300 and p300- and CBP-associated factor (P/CAF) in vitro and in vivo. Whereas p300 acetylates two lysine residues (K33 and K116) within the ER81 N-terminal transactivation domain, P/CAF targets only K116. Acetylation of ER81 not only enhances its ability to transactivate but also increases its DNA binding activity and in vivo half-life."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:ETV1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15320717"
+SET Citation = {"PubMed","Curr Cancer Drug Targets 2004 Aug 4(5) 403-24","15320717"}
+
+
+SET Evidence = "4. CBP/p300 family H3, H4, H2A, H2B; Nonhistone proteins Worm to human Global coactivator"
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H2B Family,proteinmodification(A))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H3 Family,proteinmodification(A))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases proteinabundance(PFH:Histone H4 Family,proteinmodification(A))
+
+SET Evidence = "Cyclin D1 inhibits PPAR? transactivation and p300-dependent induction of PPAR?."
+
+proteinabundance(HGNC:CCND1) decreases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "HMGI (Y) P300/CBP, P/CAF Up(P/CAF), Down(p300)"
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HMGA1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15342649"
+SET Citation = {"PubMed","J Biol Chem 2004 Nov 12 279(46) 48376-88","15342649"}
+
+
+SET Evidence = "First, AMPK triggered the acetylation of importin alpha1 on Lys(22), a process dependent on the acetylase activity of p300. Second, AMPK phosphorylated importin alpha1 on Ser(105)"
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transportactivity(proteinabundance(HGNC:KPNA2))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16380451"
+SET Citation = {"PubMed","Blood 2006 Apr 15 107(8) 3359-70","16380451"}
+
+
+SET Evidence = "Table 3. EKLF-dependent genes in the fetal liver"
+
+transcriptionalactivity(proteinabundance(MGI:Klf1)) decreases rnaabundance(MGI:Rbl2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16410542"
+SET Citation = {"PubMed","Physiol Genomics 2006 Jan 12 24(2) 133-43","16410542"}
+
+
+SET Evidence = "We utilized a cDNA microarray approach to identify genes differentially regulated during pancreatic regeneration after Ppx and/or Ex-4 administration. The pancreatic remnant after Ppx showed a large number of differentially regulated genes. In contrast, Ex-4 treatment resulted in a smaller number of differentially regulated genes. Of note, a common subset of genes regulated by Ex-4 and after Ppx was identified, including three members of the mitogenic Reg gene family, Reg2, -3gamma, and -3beta, as well as fragilis, a gene that maintains pluripotency during germ cell specification, and Serpin b1a, a member of an intracellular protease inhibitor family involved in cell survival. (Partial Pancreatectomy: Table 1-24h)"
+
+pathology(SDIS:Partial Pancreatectomy) increases rnaabundance(MGI:Ep300)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12724314"
+SET Citation = {"PubMed","J Biol Chem 2003 Jul 11 278(28) 25568-76","12724314"}
+
+
+SET Evidence = "In this study, we describe the application of the same strategy for the identification of p300 acetyltransferase-mediated acetylation sites on p53. Consistent with the previous finding, lysines 370, 372, 373, 381, and 382 were detected by this modified selected ion tracing method as the target sites of p300 in vitro. Moreover, two novel acetylation sites, Lys-292 and Lys-305, were also found."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TP53))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16407227"
+SET Citation = {"PubMed","J Biol Chem 2006 Mar 17 281(11) 7489-97","16407227"}
+
+
+SET Evidence = "Here we show that HIPK2 phosphorylates the activation domain of Pax6, which augments Pax6 transactivation by enhancing its interaction with p300."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:PAX6))
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:PAX6))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12960163"
+SET Citation = {"PubMed","J Biol Chem 2003 Nov 14 278(46) 45145-53","12960163"}
+
+
+SET Evidence = "PARP-1 and p300 synergistically coactivated NF-kappaB-dependent gene expression in response to TNFalpha and LPS. Furthermore, PARP-1 interacted directly with p300 and enhanced the interaction of NF-kappaB1/p50 to p300."
+
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:13130303"
+SET Citation = {"PubMed","Nat Rev Cancer 2003 Oct 3(10) 721-32","13130303"}
+
+
+SET Evidence = "In addition to effects on HIF-1a synthesis, activation of the RAF MEK ERK signalling pathway has also been shown to stimulate HIF-1a transactivation-domain function. This effect is due at least in part to phosphorylation by ERK of the co-activator p300, with which the transactivation domains interact."
+
+proteinabundance(HGNC:EP300,proteinmodification(P)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+kinaseactivity(proteinabundance(PFH:MAPK Erk1/3 Family)) increases proteinabundance(HGNC:EP300,proteinmodification(P))
+
+SET Evidence = "O2-dependent hydroxylation of asparagine (N) residue 803 in HIF-1a by the enzyme FIH-1 (factor inhibiting HIF-1) blocks the binding of p300 and CBP to HIF-1a and therefore inhibits HIF-1-mediated gene transcription."
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10982847"
+SET Citation = {"PubMed","Mol Cell Biol 2000 Oct 20(19) 7300-10","10982847"}
+
+
+SET Evidence = "Consistent with the physical interaction between ER81 and the coactivators CBP and p300, ER81 transcriptional activity was potentiated by CBP/p300 overexpression."
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ETV1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14500836"
+SET Citation = {"PubMed","Nucleic Acids Res 2003 Oct 1 31(19) 5723-31","14500836"}
+
+
+SET Evidence = "Smad1, a Smad species that is activated by BMP2, barely interacted with NIC, but did form a complex with NIC in the simultaneous presence of the coactivators P/CAF and p300."
+
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12080085"
+SET Citation = {"PubMed","Genes Dev 2002 Jun 15 16(12) 1466-71","12080085"}
+
+
+SET Evidence = "To identify the modified residue, the relevant tryptic peptides from each sample were further analyzed by tandem mass spectrometry. Comparison of the fragment patterns revealed that Asn 851 contained the additional oxygen atom (Fig. 4B). Together these data show that FIH-1 is an asparaginyl hydroxylase that inhibits HIF transcriptional activity by preventing CAD association with the coactivator p300. "
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:EPAS1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14510502"
+SET Citation = {"PubMed","Nucleic Acids Res Suppl 2003 (3) 305-6","14510502"}
+
+
+SET Evidence = "JDP2 has an inhibitory activity of acetylation of all core histones mediated by histone acetyltransferase (HAT) both of p300 and PCAF in vitro."
+
+proteinabundance(EGID:122953) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14516658"
+SET Citation = {"PubMed","Mech Dev 2002 Dec 119 Suppl 1 S39-42","14516658"}
+
+
+SET Evidence = "Here we show that this gene family is coordinately regulated in the mammary luminal epithelium. Expression of Rb, p107 and p130 in the epithelial compartment is low in nulliparous female mice and early stages of pregnancy but is induced at mid-pregnancy and peaks at lactation."
+
+biologicalprocess(GO:lactation) increases rnaabundance(MGI:Rbl2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:18268343"
+SET Citation = {"PubMed","Proc Natl Acad Sci U S A 2008 Feb 19 105(7) 2622-7","18268343"}
+
+
+SET Evidence = "(from text) Furthermore, decreasing endogenous levels of FOXO3a protein by siRNA increases HIF-1 transcriptional activity in PTEN-positive HEK-293 cells (Fig. 6Fig. 6. D and E). Collectively, our findings support the argument that FOXO3a is a negative regulator of HIF-1 transcriptional activity by interfering with the ability of p300 to serve a transcriptional coactivator."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16518400"
+SET Citation = {"PubMed","Nat Struct Mol Biol 2006 Mar 5","16518400"}
+
+
+SET Evidence = "Here, we examine the functional mechanisms of JDP2 and show that it can inhibit p300-mediated acetylation of core histones in vitro and in vivo."
+
+proteinabundance(EGID:122953) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15509864"
+SET Citation = {"PubMed","J Cell Sci 2004 Nov 1 117(Pt 23) 5479-87","15509864"}
+
+
+SET Evidence = "Finally, it (AMPK) phosphorylates the ubiquitous co-activator p300 at a specific site (Ser89), reducing its ability to bind to nuclear hormone receptors and thus activate their target genes"
+
+kinaseactivity(complexabundance(NCH:AMP Activated Protein Kinase Complex)) increases proteinabundance(HGNC:EP300,proteinmodification(P,S,89))
+proteinabundance(HGNC:EP300,proteinmodification(P,S,89)) directlyDecreases catalyticactivity(proteinabundance(HGNC:EP300))
+kinaseactivity(complexabundance(NCH:AMP Activated Protein Kinase Complex)) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:18391973"
+SET Citation = {"PubMed","Oncogene 2008 Apr 7 27(16) 2312-9","18391973"}
+
+
+SET Evidence = "Recent studies indicate that FOXO transcription factors are acetylated by p300 and CREB-binding protein, co-activators possessing acetyltransferase activity, at several conserved lysine residues, many of which are located in the DNA-binding domain (Fukuoka et al., 2003; van derHor st et al., 2004)."
+
+catalyticactivity(proteinabundance(MGI:Ep300)) increases proteinabundance(PFM:Foxo Family,proteinmodification(A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12200448"
+SET Citation = {"PubMed","J Biol Chem 2002 Nov 1 277(44) 42386-93","12200448"}
+
+
+SET Evidence = "We show here that the p300 coactivator was required for efficient transactivation of beta-catenin on this promoter."
+
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:18451177"
+SET Citation = {"PubMed","Cancer Res 2008 May 1 68(9) 3486-94","18451177"}
+
+
+SET Evidence = "We also found that TRIM68 functionally interacts with TIP60 and p300, which act as coactivators of AR, and synergizes in the transactivation of AR. "
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11116148"
+SET Citation = {"PubMed","J Biol Chem 2001 Mar 16 276(11) 8516-23","11116148"}
+
+
+SET Evidence = "PhosphoElm data from PMID 15212693"
+
+kinaseactivity(proteinabundance(PFH:AKT Family)) directlyIncreases proteinabundance(HGNC:EP300,proteinmodification(P,S,1834))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15572674"
+SET Citation = {"PubMed","Mol Cell Biol 2004 Dec 24(24) 10689-702","15572674"}
+
+
+SET Evidence = "It has been shown that the LIM protein FHL2 and the acetyltransferase CBP/p300 individually stimulate beta-catenin transactivating activity"
+
+transcriptionalactivity(proteinabundance(MGI:Ep300)) increases transcriptionalactivity(proteinabundance(PFM:Tcf/Lef Family))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14594809"
+SET Citation = {"PubMed","J Biol Chem 2003 Oct 31","14594809"}
+
+
+SET Evidence = "The TAZ1 domain of the homologous transcriptional coactivators CREB-binding protein (CBP) and p300 forms a complex with CITED2 (CBP/p300-interacting transactivator with ED-rich tail), inhibiting the activity of the hypoxia inducible factor (HIF-1alpha)"
+
+complexabundance(proteinabundance(HGNC:CITED2),proteinabundance(HGNC:EP300)) decreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12223121"
+SET Citation = {"PubMed","Breast Cancer Res 2002 4(5) 182-6","12223121"}
+
+
+SET Evidence = "CBP was initially characterized as a coactivator required for efficient transactivation of cAMP-response elementbinding protein, and p300 was first identified as a coactivator of the adenovirus E1A oncoprotein. CBP and p300 share many functional properties: both of them function as coactivators for multiple nuclear receptors as well as p53 and nuclear factor-eB [9], both possess intrinsic histone acetyltransferase activity, and both can recruit histone acetyltransferase and CBP/p300-associated factor [26]. Besides, CBP/p300 interacts with members of the SRC family and synergizes with SRC-1 in the transactivation of the ER and the PR"
+
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:NCOA1)) increases transcriptionalactivity(proteinabundance(EGID:5925))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15342390"
+SET Citation = {"PubMed","Cancer Res 2004 Sep 1 64(17) 6075-81","15342390"}
+
+
+SET Evidence = "CITED4 blocks the binding of hypoxia-inducible factor 1alpha to p300 in vitro and inhibits hypoxia-inducible factor-1alpha transactivation"
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11157749"
+SET Citation = {"PubMed","EMBO J 2001 Feb 1 20(3) 422-32","11157749"}
+
+
+SET Evidence = "PhosphoElm data from PMID 15212693"
+
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,688))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,T,1097))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,T,642))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,T,694))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,1080))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,413))
+kinaseactivity(proteinabundance(HGNC:CDK2)) directlyIncreases proteinabundance(HGNC:RBL2,proteinmodification(P,S,662))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12228231"
+SET Citation = {"PubMed","J Biol Chem 2002 Nov 22 277(47) 45276-84","12228231"}
+
+
+SET Evidence = "DAF-16 and its mammalian homologues, including FKHR (FOXO1), FKHRL1 (FOXO3a), and AFX (FOXO4) interact directly with IRSs from the IGFBP-1 promoter in a sequence-specific fashion in in vitro assays and in cells. In liver-derived cells, FOXO proteins stimulate the activity of promoters for IGFBP-1, glucose-6 phosphatase, and PEPCK. In other cell types, FOXO proteins also stimulate the expression of proteins that inhibit cell cycle progression, including p27Kip, Rb2, and GADD45, and proteins that promote cells death, including Bim and Fas ligand."
+
+transcriptionalactivity(proteinabundance(HGNC:FOXO4)) directlyIncreases rnaabundance(HGNC:RBL2)
+transcriptionalactivity(proteinabundance(HGNC:FOXO3)) directlyIncreases rnaabundance(HGNC:RBL2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16648821"
+SET Citation = {"PubMed","EMBO Rep 2006 Jul 7(7) 727-33","16648821"}
+
+
+SET Evidence = "Indeed, acetylation on Lys 730 drives c-Abl accumulation in the cytoplasm and promotes differentiation."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) decreases translocation(proteinabundance(HGNC:ABL1),GOCCACC:GO:0005737,GOCCACC:GO:0005634)
+catalyticactivity(proteinabundance(HGNC:EP300)) increases biologicalprocess(GO:myoblast differentiation)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15632193"
+SET Citation = {"PubMed","J Biol Chem 2005 Mar 18 280(11) 10264-76","15632193"}
+
+
+SET Evidence = "Herein, SIRT1 physically interacted with and repressed p300 transactivation, requiring the NAD-dependent deacetylase activity of SIRT1. SIRT1 repression involved the CRD1 transcriptional repression domain of p300. Two residues within the CRD1 domain (Lys-1020 and Lys-1024) were required for SIRT1 repression and served as substrates for SIRT1 deacetylation."
+
+catalyticactivity(proteinabundance(HGNC:SIRT1)) decreases transcriptionalactivity(proteinabundance(HGNC:EP300))
+catalyticactivity(proteinabundance(HGNC:SIRT1)) decreases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14630807"
+SET Citation = {"PubMed","Blood 2004 Mar 15 103(6) 2135-42","14630807"}
+
+
+SET Evidence = "Binding of p300/CBP-associated factor (PCAF) was also up-regulated."
+
+abundance(SCHEM:Tetradecanoylphorbol acetate) increases complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:KAT2B))
+abundance(CHEBI:lipopolysaccharide) increases complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:KAT2B))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15187151"
+SET Citation = {"PubMed","J Immunol 2004 Jun 15 172(12) 7684-93","15187151"}
+
+
+SET Evidence = "To investigate the cellular fate and function of polymorphonuclear neutrophilic granulocytes (PMNs) attracted to skin wounds, we used a human skin-wounding model and microarray technology to define differentially expressed genes in PMNs from peripheral blood, and PMNs that had transmigrated to skin lesions. After migration to skin lesions, PMNs demonstrated a significant transcriptional response including genes from several different functional categories. The up-regulation of anti-apoptotic genes concomitant with the down-regulation of proapoptotic genes suggested a transient anti-apoptotic priming of PMNs. Among the up-regulated genes were cytokines and chemokines critical for chemotaxis of macrophages, T cells, and PMNs, and for the modulation of their inflammatory responses. PMNs in skin lesions down-regulated receptors mediating chemotaxis and anti-microbial activity, but up-regulated other receptors involved in inflammatory responses. These findings indicate a change of responsiveness to chemotactic and immunoregulatory mediators once PMNs have migrated to skin lesions and have been activated. Other effects of the up-regulated cytokines/chemokines/enzymes were critical for wound healing. These included the breakdown of fibrin clots and degradation of extracellular matrix, the promotion of angiogenesis, the migration and proliferation of keratinocytes and fibroblasts, the adhesion of keratinocytes to the dermal layer, and finally, the induction of anti-microbial gene expression in keratinocytes. Notably, the up-regulation of genes, which activate lysosomal proteases, indicate a priming of skin lesion-PMNs for degradation of phagocytosed material. These findings demonstrate that migration of PMNs to skin lesions induces a transcriptional activation program, which regulates cellular fate and function, and promotes wound healing."
+
+biologicalprocess(GO:neutrophil chemotaxis) decreases rnaabundance(HGNC:RBL2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:18243116"
+SET Citation = {"PubMed","Mol Cell 2008 Feb 1 29(2) 217-31","18243116"}
+
+
+SET Evidence = "We demonstrate that Skp2 forms a complex with p300 through the CH1 and the CH3 domains of p300 to which p53 is thought to bind and antagonizes the interaction between p300 and p53 in cells and in vitro. As Skp2 antagonizes the interaction between p300 and p53, Skp2 suppresses p300-mediated acetylation of p53 and the transactivation ability of p53. "
+
+catalyticactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TP53))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14633989"
+SET Citation = {"PubMed","EMBO J 2003 Dec 1 22(23) 6299-309","14633989"}
+
+
+SET Evidence = "APE1 is acetylated both in vivo and in vitro by the transcriptional co-activator p300 which is activated by Ca2+"
+
+abundance(SCHEM:Calcium) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases catalyticactivity(proteinabundance(HGNC:APEX1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12384515"
+SET Citation = {"PubMed","Cancer Res 2002 Oct 15 62(20) 5632-6","12384515"}
+
+
+SET Evidence = "Transfection of cells with expression vector E1A12S, to express E1A, an oncoprotein that sequesters p300, thereby inhibiting its HAT activity  repressed the IL6 stimulated transactivation of AR. This suggests that HAT activity of p300 is necessary for AR transactivation."
+
+proteinabundance(HGNC:EP300) increases proteinabundance(HGNC:AR)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:17884810"
+SET Citation = {"PubMed","J Biol Chem 2007 Nov 23 282(47) 34066-76","17884810"}
+
+
+SET Evidence = "An interplay of regulatory factors modulates positively (p300) or negatively (histone deacetylases) the action of glucocorticoids on ucp3 gene transcription via histone acetylation or deacetylation processes, respectively. Among them, SIRT1 acts as a major repressor of ucp3 gene expression in response to glucocorticoids."
+
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14660614"
+SET Citation = {"PubMed","J Biol Chem 2004 Feb 27 279(9) 8333-42","14660614"}
+
+
+SET Evidence = "31-kDa contains a helix-loop-helix (HLH) domain that shows greater sequence homology with Id proteins than with basic HLH proteins, which enabled heterodimerization with E2A. Once coupled to E2A, 31-kDa was translocated to the cell nucleus, where it inhibited E2A-mediated p21(Waf1/Cip1) transcription."
+
+complexabundance(proteinabundance(HGNC:RBL2),proteinabundance(HGNC:TCF3)) decreases transcriptionalactivity(proteinabundance(HGNC:TCF3))
+
+SET Evidence = "Moreover, overexpression of 31-kDa led to cell death that could be inhibited by treatment with the caspase inhibitor ZVAD-fluoromethyl ketone or by ectopic expression of E2A or p21(Waf1/Cip1)."
+
+proteinabundance(HGNC:RBL2) increases biologicalprocess(GO:cell death)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14662860"
+SET Citation = {"PubMed","J Immunol 2003 Dec 15 171(12) 6581-8","14662860"}
+
+
+SET Evidence = "To determine whether p300 is involved in inducible NO synthase (iNOS) transcriptional regulation, we evaluated the effect of p300 overexpression on iNOS expression and characterized p300 binding to iNOS promoter in RAW 264.7 cells. p300 overexpression increased iNOS expression which was abrogated by deletion of the histone acetyltransferase (HAT) domain (Delta1472-1522). DNA-binding and chromatin immunoprecipitation assays revealed binding of p300 to several DNA-bound transactivators at basal state. Following stimulation with LPS plus IFN-gamma, binding of p300, p50/p65 NF-kappaB, and IFN-regulatory factor-1 was increased by approximately 2-fold. Nuclear p50 was complexed with and acetylated by p300 at the basal binding state which was increased by LPS and IFN-gamma stimulation. p300 overexpression resulted in increased p50 acetylation which was reduced by HAT mutation. p50 acetylation correlated with increased NF-kappaB binding and enhanced p300 recruitment. Co-overexpression of E1A abolished the augmentation of p50 acetylation and p50 binding induced by p300 overexpression, and a correlative suppression of p300 recruitment to the complex. We conclude that p300 is essential for iNOS transcription. Our results suggest that p300 HAT acetylates the p50 subunit of NF-kappaB, thereby increasing NF-kappaB binding and NF-kappaB mediated transactivation."
+
+catalyticactivity(proteinabundance(MGI:Ep300)) directlyIncreases transcriptionalactivity(complexabundance(NCM:Nfkb Complex))
+
+SET Evidence = "Nuclear p50 was complexed with and acetylated by p300 at the basal binding state which was increased by LPS and IFN-gamma stimulation. p300 overexpression resulted in increased p50 acetylation which was reduced by HAT mutation. p50 acetylation correlated with increased NF-kappaB binding and enhanced p300 recruitment."
+
+proteinabundance(MGI:Ifng) increases complexabundance(proteinabundance(MGI:Ep300),complexabundance(NCM:Nfkb Complex))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14680484"
+SET Citation = {"PubMed","Breast Cancer Res 2004 6(1) 39-52","14680484"}
+
+
+SET Evidence = "The C-terminal region of the p160 proteins mediates interaction with other factors with a role in ER signaling including CBP (CREB-binding protein), p300 and arginine methyltransferase 1 (CARM-1) [32]."
+
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:NCOA2)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:NCOA3)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+
+SET Evidence = "Transcriptional activation involves alterations in chromatin structure mediated by ATP-dependent chromatin-remodeling enzymes in conjunction with factors that contain histone acetyltransferase (HAT) activity [17]. Consistent with this concept is the observation that ER recruits BRG1, a mammalian homologue of a component of the SWI/SNF chromatin remodeling complex, to EREs in a cooperative manner with HATs [18]. Further, many ER coactivators possess intrinsic HAT activities, including CBP/p300, p/CAF, and TAFII250 [19-21]. Other coactivators such as the p160 coactivators facilitate ER transcription by serving as platforms to recruit HATs and protein methyltransferases."
+
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:ESR1)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+
+SET Evidence = "ER coregulators are also targets of many of the same signaling pathways that affect ER directly. MAPK can phosphorylate p160 coactivators NCoA-1 and NCoA-3, and can enhance their transcriptional activities partly by facilitating their interaction with CBP/p300 [87,88]."
+
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:NCOA3)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:19047049"
+SET Citation = {"PubMed","J Biol Chem 2009 Jan 30 284(5) 2657-71","19047049"}
+
+
+SET Evidence = " HA binding to CD44 up-regulates p300 expression and its acetyltransferase activity that, in turn, promotes acetylation of beta-catenin and NFkappaB-p65 leading to activation of beta-catenin-associated T-cell factor/lymphocyte enhancer factor transcriptional co-activation and NFkappaB-specific transcriptional up-regulation, respectively. These changes then cause the expression of the MDR1 (P-glycoprotein/P-gp) gene and the anti-apoptotic gene Bcl-x(L) resulting in chemoresistance in MCF-7 cells. "
+
+abundance(CHEBI:hyaluronic acid) increases catalyticactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "Further analyses indicate that activation of SIRT1 (deacetylase) by resveratrol (a natural antioxidant) induces SIRT1-p300 association and acetyltransferase inactivation, leading to deacetylation of HA/CD44-induced beta-catenin and NFkappaB-p65, inhibition of beta-catenin-T-cell factor/lymphocyte enhancer factor and NFkappaB-specific transcriptional activation, and the impairment of MDR1 and Bcl-x(L) gene expression."
+
+abundance(CHEBI:resveratrol) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11279224"
+SET Citation = {"PubMed","J Biol Chem 2001 Apr 27 276(17) 13505-8","11279224"}
+
+
+SET Evidence = "Basal transcription factors and HATs= TBP, RNA helicase A, TFIIB, P/CAF, p/CIP, SRC-1 TFIIB=GTF2B"
+
+proteinabundance(HGNC:EP300) directlyIncreases catalyticactivity(proteinabundance(HGNC:TBP))
+
+SET Evidence = "Full Review Phosphorylation of p300 and CBP by cyclin E/Cdk2 was reported by Perkins,... In the case of p300, cyclinE/Cdk2 was shown to negatively regulate coactivator function in a manner that can be blocked by p21"
+
+proteinabundance(HGNC:TCEAL1) increases catalyticactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "HATs"
+
+proteinabundance(HGNC:EP300) directlyIncreases proteinabundance(HGNC:NCOA3)
+
+SET Evidence = "Fig.1- shows proteins that interact with CBP/300 Transciptional activators= STAT1, (already).  SF1, TAL1, p73, Mdm2, HIF2?, ETS1, RXR, p65, Pit1 (POU1F1), HNF4, Stat2, EBNA2 (virus), HPV E2?, BRCA1, p45/NF-E2, c-JUN, c-myb, Tax?, Sap1, YY1, SREBP, ATF-1, ATF-4, Cubitus interuptusm GII3?, vIRF?, JMY, dMAD?, Py LT?, HPV E6, CIITA, Tat(HIV), SF-1, E2F, Ets-1, junB, C/EBPb, (already) GATA-1, Neuro D, Microphthalmia, E1A, Twist, p53 (already), Myo D, pp90 RSK, SMAD (already), ATF-2, c-Fos, SC40?, Large T? p300 k.o. are defective for RXR signal but not CREB"
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(complexabundance(NCH:AP-1 Complex))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ATF1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ATF4))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ATF2))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ETS1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:FOS))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HNF4A))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:JUN))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:JUNB))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:MDM2))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:MYB))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:NEUROD1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:POU1F1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:RELA))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(PFH:RXR Family))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:SF1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:SF1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:SREBF1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TAL1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TP73))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TWIST1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:TWIST2))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:JMY))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12435483"
+SET Citation = {"PubMed","Neurosci Lett 2002 Dec 13 334(2) 107-10","12435483"}
+
+
+SET Evidence = "Subcutaneous injection of 5alpha-dihydrotestosterone as well as testosterone propionate to PN2 neonatal rats significantly increased p130 gene expression at PN3, whereas estradiol benzoate did not have a significant effect. These results suggest that expression of the p130 gene in the neonatal rat hypothalamus is responsive to androgens and may be involved in sexual differentiation of the brain."
+
+abundance(SCHEM:Testosterone propionate) increases rnaabundance(RGD:Rbl2)
+abundance(CHEBI:androgen) increases rnaabundance(RGD:Rbl2)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15701643"
+SET Citation = {"PubMed","J Biol Chem 2005 Apr 15 280(15) 14492-8","15701643"}
+
+
+SET Evidence = "We further show that p300 is essential for SENP1 to enhance c-Jun-dependent transcription because SENP1 can desumoylate the CRD1 domain of p300, thereby releasing the cis-repression of CRD1 on p300."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:JUN))
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:JUN))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14755691"
+SET Citation = {"PubMed","J Cell Biochem 2004 Feb 15 91(3) 633-45","14755691"}
+
+
+SET Evidence = "The Hic-5 effect was mediated by a transactivation domain of Sp1 and functional interaction with p300 through the LIM4 domain. Hic-5 was also shown to interact functionally and physically with Smad3 through the LIM domains and to potentiate p21 promoter activity together with Smad3 and Sp1"
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:TGFB1I1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12453427"
+SET Citation = {"PubMed","Mol Cell 2002 Nov 10(5) 1213-22","12453427"}
+
+
+SET Evidence = "Interestingly, acetylated Polbeta showed a severely reduced ability to participate in a reconstituted BER assay. This was due to an impairment of the dRP-lyase activity of Polbeta."
+
+catalyticactivity(proteinabundance(HGNC:EP300)) decreases catalyticactivity(proteinabundance(HGNC:POLB))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group Entrez Gene summary: EP300"
+SET Citation = {"N/A","Entrez Gene summary: EP300","Entrez Gene summary: EP300"}
+
+
+SET Evidence = "Entrez Gene summary: Human: EP300 encodes the adenovirus E1A-associated cellular p300 transcriptional co-activator protein. p300 is related by sequence to CBP (CREB-binding protein [CREB: cyclic-AMP responsive element binding protein]), and like CBP can stimulate transcription through activation of CREB. This EP300 activity is specifically inhibited by the adenovirus oncoprotein E1A. EP300 has also been identified as a co-activator of HIF1A (hypoxia-inducible factor 1 alpha), and thus plays a role in the stimulation of hypoxia-induced genes such as VEGF."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16917507"
+SET Citation = {"PubMed","EMBO J 2006 Sep 6 25(17) 3955-65","16917507"}
+
+
+SET Evidence = "Histone acetyltransferases (HATs) p300 and CREB-binding protein (CBP) function as co-activators for a variety of sequence-specific transcription factors, including AML1."
+
+catalyticactivity(proteinabundance(MGI:Ep300)) increases transcriptionalactivity(proteinabundance(MGI:Runx1))
+
+SET Evidence = "Here, we report that homeodomain-interacting protein kinase-2 (HIPK2) forms a complex with AML1 and p300, and phosphorylates both AML1 and p300 to stimulate transcription activation as well as HAT activities."
+
+proteinabundance(MGI:Ep300,proteinmodification(P)) directlyIncreases catalyticactivity(proteinabundance(MGI:Ep300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16926151"
+SET Citation = {"PubMed","J Biol Chem 2006 Oct 20 281(42) 31359-68","16926151"}
+
+
+SET Evidence = "Akt-mediated phosphorylation of p300 dramatically increases its acetyltransferase activity as measured by an increased acetylation of RelA/p65 at Lys(310), a modification that is required for full NF-kappaB transcription."
+
+proteinabundance(HGNC:EP300,proteinmodification(P,S,1834)) directlyIncreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "Using newly developed phosphospecific antibodies to p300 (pSer(1834)), and site-directed mutant proteins, we find that suberoylanilide hydroxamic acid stimulates Akt activity, which is required to phosphorylate p300 at Ser(1834)."
+
+kinaseactivity(proteinabundance(PFH:AKT Family)) directlyIncreases proteinabundance(HGNC:EP300,proteinmodification(P,S,1834))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12473110"
+SET Citation = {"PubMed","Eur J Biochem 2002 Dec 269(24) 6142-51","12473110"}
+
+
+SET Evidence = "Here we show that two distinct sets of Ser/Thr residues of IRF-3, on phosphorylation, synergize functionally to achieve maximal activation. Remarkably, we find that activated IRF-3 lacks transcriptional activity, but activates transcription entirely through the recruitment of the p300/CBP coactivators"
+
+proteinabundance(HGNC:IRF3,proteinmodification(P,T)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15722556"
+SET Citation = {"PubMed","J Biol Chem 2005 Apr 29 280(17) 16625-34","15722556"}
+
+
+SET Evidence = "binding of CBP/p300 to C/EBPbeta leads to sequestration of C/EBP eliminating DNA binding and subsequent repression"
+
+transcriptionalactivity(proteinabundance(RGD:Ep300)) decreases transcriptionalactivity(proteinabundance(RGD:Cebpb))
+
+SET Evidence = "binding of CBP/p300 to the transcriptional activator Sox9 increases Sox9 DNA binding to the Cd-rap promoter leading to further stimulation of gene transcription"
+
+transcriptionalactivity(proteinabundance(RGD:Ep300)) increases transcriptionalactivity(proteinabundance(RGD:Sox9))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14747462"
+SET Citation = {"PubMed","J Biol Chem 2004 Apr 9 279(15) 14909-16","14747462"}
+
+
+SET Evidence = "In addition, ACTR collaborates with the p300 coactivator, a joint interaction partner of ACTR and ER81, to stimulate ER81 function and the ability of p300 to acetylate ER81 is indispensable for this collaboration."
+
+transcriptionalactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:ETV1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15734868"
+SET Citation = {"PubMed","Diabetes 2005 Mar 54(3) 880-5","15734868"}
+
+
+SET Evidence = "Effect of TZDs on gene expression. TZD treatment of the eight patients with type 2 diabetes (Table 1) was associated with a statistically significant twofold or greater increase in the expression (by microarray) of 107 gene sequences and a twofold or greater decrease in the expression of six gene sequences (online appendix [available at http://diabetes.diabetesjournals.org]). "
+
+abundance(SCHEM:Thiazolidinedione) increases rnaabundance(HGNC:EP300)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group SREBF Workaround"
+SET Citation = {"N/A","SREBF Workaround","SREBF Workaround"}
+
+
+SET Evidence = "Not Available"
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:SREBF2))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group Genstruct Top Level Model for Toll-Like Receptor Signalling"
+SET Citation = {"N/A","Genstruct Top Level Model for Toll-Like Receptor Signalling","Genstruct Top Level Model for Toll-Like Receptor Signalling"}
+
+
+SET Evidence = "Not Available"
+
+catalyticactivity(proteinabundance(HGNC:TLR3)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+catalyticactivity(proteinabundance(HGNC:TLR4)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11429409"
+SET Citation = {"PubMed","J Biol Chem 2001 Aug 17 276(33) 31030-6","11429409"}
+
+
+SET Evidence = "In this study, we describe a novel ligand-dependent transactivation function for AR that is independent of its DNA binding ability. AR dramatically increased the intrinsic transcriptional activity of the nuclear receptor coactivators glucocorticoid receptor-interacting protein-1 (GRIP1), cAMP response element-binding protein-binding protein, and p300 that are tethered to DNA."
+
+proteinabundance(HGNC:AR) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+SET Evidence = "AR dramatically increased the intrinsic transcriptional activity of the nuclear receptor coactivators glucocorticoid receptor-interacting protein-1 (GRIP1), cAMP response element-binding protein-binding protein, and p300 that are tethered to DNA."
+
+transcriptionalactivity(proteinabundance(HGNC:AR)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+transcriptionalactivity(proteinabundance(HGNC:AR)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16990801"
+SET Citation = {"PubMed","EMBO J 2006 Oct 4 25(19) 4490-502","16990801"}
+
+
+SET Evidence = "We demonstrate that Smad2-mediated transcription requires the histone acetyltransferase, p300. Smad2-recruited p300 exhibits an altered substrate specificity, specifically acetylating nucleosomal histone H3 at lysines 9 and 18, and these modifications are also detected on an endogenous Smad2-dependent promoter in a ligand-induced manner."
+
+complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:SMAD2)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:SMAD2))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:16987807"
+SET Citation = {"PubMed","J Biol Chem 2006 Nov 17 281(46) 34725-9","16987807"}
+
+
+SET Evidence = "As an activator MYC recruits a number of different cofactors that possess the capability to control chromatin structure, acetylate core histones as well as transcriptional regulators, and regulate polymerase complexes (summarized in Fig. S2B) (9)."
+
+transcriptionalactivity(proteinabundance(HGNC:MYC)) increases transcriptionalactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:14980222"
+SET Citation = {"PubMed","Cell 2004 Feb 20 116(4) 551-63","14980222"}
+
+
+SET Evidence = "SIRT1 Deacetylates Foxo3a and p300 and Represses p300-Mediated Activation of Foxo3a"
+
+catalyticactivity(proteinabundance(HGNC:SIRT1)) decreases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12556466"
+SET Citation = {"PubMed","J Biol Chem 2003 Apr 4 278(14) 11802-10","12556466"}
+
+
+SET Evidence = "mouse genes down-regulated by Egr1"
+
+proteinabundance(MGI:Rbl2) decreases pathology(SDIS:tumor growth)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11486006"
+SET Citation = {"PubMed","J Biol Chem 2001 Oct 19 276(42) 38527-35","11486006"}
+
+
+SET Evidence = "Since HIF-1alpha has been also reported to associate with p300 to stimulate VEGF transcription ( 72 ), it is possible that the HIF-1/Smad association on the VEGF promoter could lead to a more efficient recruitment of p300 into the DNA-protein complex ( 1 )."
+
+proteinabundance(PFH:VEGF Family) increases rnaabundance(HGNC:EP300)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:10068081"
+SET Citation = {"PubMed","Breast Cancer Res Treat 1998 51(3) 227-38","10068081"}
+
+
+SET Evidence = "After binding of ligand, either estrogens or antiestrogens, to the ER, the receptor dimerizes with another receptor-monomer to somehow activate the complex and to facilitate the binding of the receptor dimer to the EREs of target genes... ERalpha and ERbeta can heterodimerize, and ERbeta appears to have different functional properties Other nuclear proteins can interact with the ER dimer to modify the expression of certain genes...Some of these receptor-interacting proteins function as co-activators to amplify transcription activation from the ER, while others function as co-repressors. Molecules that have been identified to act as ER co-activators include SRC-1 and SRC-2, CBP/p300, TIF-2,TRIP-1, and AIB-1 ...AIB(also called SRC-3 or Rac3) is amplififed and/or overexpressed in a large percentage of human breast cancer specimens, suggesting that it may have an important role in breast cancer development N-CoR and SMRT function as co-repressors and bind to the ER either in the absence of estrogen or in the presence of tamoxifen progression"
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:ESR1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12569365"
+SET Citation = {"PubMed","Oncogene 2003 Feb 6 22(5) 734-9","12569365"}
+
+
+SET Evidence = "In addition, it is also able to enhance AR-mediated transcription in synergy with other coactivators, including CREB-binding protein (CBP) and p300/CBP associated factor."
+
+complexabundance(proteinabundance(HGNC:CREBBP),proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:AR))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15021891"
+SET Citation = {"PubMed","Oncogene 2004 Mar 15 23(11) 2037-49","15021891"}
+
+
+SET Evidence = "In fact, Skp2 overexpression was shown to induce the transcription of c-Myc target genes suggesting that Skp2 acts as a transcription coactivator of c-Myc. Skp2 can concurrently lead to degradation of tumor suppressors (p27, p57, p21 and p130) and to activation of an oncogene (c-Myc). While Skp2-deficient mice, which should have decreased c-Myc activity, can develop almost normally"
+
+proteinabundance(HGNC:RBL2) decreases pathology(SDIS:tumor growth)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12588875"
+SET Citation = {"PubMed","J Biol Chem 2003 Apr 18 278(16) 14013-9","12588875"}
+
+
+SET Evidence = "The transactivation activity of HIF complexes requires the recruitment of p300/CREB-binding protein (CBP) by HIF-1 alpha and HIF-2 alpha that undergo oxygen-dependent degradation."
+
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:EPAS1))
+proteinabundance(HGNC:EP300) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11564735"
+SET Citation = {"PubMed","J Biol Chem 2001 Nov 30 276(48) 45031-40","11564735"}
+
+
+SET Evidence = "Through its binding to p300, DTX1 inhibited transcriptional activation by the neural-specific helix-loop-helix-type transcription factor MASH1, and this mechanism is likely responsible for the differentiation inhibition of neural progenitor cells."
+
+complexabundance(proteinabundance(HGNC:DTX1),proteinabundance(HGNC:EP300)) decreases transcriptionalactivity(proteinabundance(HGNC:ASCL1))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:7777529"
+SET Citation = {"PubMed","Proc Natl Acad Sci U S A 1995 Jun 6 92(12) 5451-5","7777529"}
+
+
+SET Evidence = "During keratinocyte differentiation, Cip1/WAF1 induction does not require p53 but depends on the transcriptional modulator p300."
+
+proteinabundance(HGNC:EP300) increases proteinabundance(HGNC:CDKN1A)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12640139"
+SET Citation = {"PubMed","Mol Cell Biol 2003 Apr 23(7) 2587-99","12640139"}
+
+
+SET Evidence = "Modified assertion"
+
+proteinabundance(HGNC:EP300) increases proteinabundance(HGNC:SREBF2)
+
+SET Evidence = "the transcriptional activity of Srebps is dependent on the coactivators p300 and CBP"
+
+transcriptionalactivity(proteinabundance(MGI:Ep300)) increases transcriptionalactivity(proteinabundance(MGI:Srebf2))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12646247"
+SET Citation = {"PubMed","Biochem Biophys Res Commun 2003 Mar 21 302(4) 841-8","12646247"}
+
+
+SET Evidence = "CBP and p300 are recruited by retinoic acid receptors (RARs)"
+
+proteinabundance(PFH:RAR Family) increases catalyticactivity(proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15075319"
+SET Citation = {"PubMed","J Biol Chem 2004 Jun 11 279(24) 25241-50","15075319"}
+
+
+SET Evidence = "In contrast, co-transfection of p300 and CBP with ESE-1 enhances the transcriptional activity of ESE-1"
+
+catalyticactivity(proteinabundance(HGNC:EP300)) increases transcriptionalactivity(proteinabundance(HGNC:ELF3))
+
+SET Evidence = "In contrast, co-transfection of p300 and CBP with ESE-1 enhances the transcriptional activity of ESE-1."
+
+proteinabundance(HGNC:EP300) increases transcriptionalactivity(proteinabundance(HGNC:ELF3))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:11689553"
+SET Citation = {"PubMed","J Biol Chem 2002 Jan 4 277(1) 854-61","11689553"}
+
+
+SET Evidence = "TGF-beta signaling did not compete with E2F-4 for binding to TIE/E2F, but reduced p300 co-immunoprecipitating with E2F-4. Therefore, TGF-beta signaling may suppress c-myc promoter activity by dissociating p300 from E2F-4."
+
+proteinabundance(HGNC:TGFB1) decreases complexabundance(proteinabundance(HGNC:EP300),proteinabundance(HGNC:E2F4))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15917664"
+SET Citation = {"PubMed","Cell Cycle 2005 Jul 4(7) 908-13","15917664"}
+
+
+SET Evidence = "Nuclear import triggered by oxidative stress results in association of FOXO proteins with proteins that have histone acetylase activity, such as p300/CBP and p300/CBP-associated factor (PCAF)."
+
+biologicalprocess(GO:response to oxidative stress) increases complexabundance(proteinabundance(HGNC:FOXO1),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP

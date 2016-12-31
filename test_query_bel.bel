@@ -1,0 +1,105 @@
+#Properties section
+SET DOCUMENT Name = "NDEx query result in BEL script"
+SET DOCUMENT Description = "Query with ndex-python-client, one step neighborhood"
+
+# Definitions Section
+DEFINE NAMESPACE MESHD AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-diseases.belns"
+DEFINE NAMESPACE SDIS AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-diseases.belns"
+DEFINE NAMESPACE MESHCL AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-cellular-locations.belns"
+DEFINE NAMESPACE RGD AS URL "http://resource.belframework.org/belframework/1.0/namespace/rgd-approved-symbols.belns"
+DEFINE NAMESPACE MESHPP AS URL "http://resource.belframework.org/belframework/1.0/namespace/mesh-biological-processes.belns"
+DEFINE NAMESPACE SCHEM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-chemical-names.belns"
+DEFINE NAMESPACE EGID AS URL "http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns"
+DEFINE NAMESPACE GO AS URL "http://resource.belframework.org/belframework/1.0/namespace/go-biological-processes-names.belns"
+DEFINE NAMESPACE CHEBIID AS URL "http://resource.belframework.org/belframework/1.0/namespace/chebi-ids.belns"
+DEFINE NAMESPACE PFH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE NCR AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-complexes.belns"
+DEFINE NAMESPACE PFM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-protein-families.belns"
+DEFINE NAMESPACE SPAC AS URL "http://resource.belframework.org/belframework/1.0/namespace/swissprot-accession-numbers.belns"
+DEFINE NAMESPACE NCH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns"
+DEFINE NAMESPACE NCM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-complexes.belns"
+DEFINE NAMESPACE CHEBI AS URL "http://resource.belframework.org/belframework/1.0/namespace/chebi-names.belns"
+DEFINE NAMESPACE MGI AS URL "http://resource.belframework.org/belframework/1.0/namespace/mgi-approved-symbols.belns"
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE PFR AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-protein-families.belns"
+DEFINE ANNOTATION EndocrineSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-endocrine-system.belanno"
+DEFINE ANNOTATION RespiratorySystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-respiratory-system.belanno"
+DEFINE ANNOTATION IntegumentarySystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-integumentary-system.belanno"
+DEFINE ANNOTATION BodyRegion AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-body-region.belanno"
+DEFINE ANNOTATION Cell AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cell.belanno"
+DEFINE ANNOTATION UrogenitalSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-urogenital-system.belanno"
+DEFINE ANNOTATION MuskuloskeletalSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-musculoskeletal-system.belanno"
+DEFINE ANNOTATION HemicAndImmuneSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-hemic-and-immune-system.belanno"
+DEFINE ANNOTATION CellLine AS URL "http://resource.belframework.org/belframework/1.0/annotation/atcc-cell-line.belanno"
+DEFINE ANNOTATION SenseOrgan AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-sense-organ.belanno"
+DEFINE ANNOTATION FluidAndSecretion AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-fluid-and-secretion.belanno"
+DEFINE ANNOTATION CardiovascularSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cardiovascular-system.belanno"
+DEFINE ANNOTATION Disease AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-disease.belanno"
+DEFINE ANNOTATION CellStructure AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-cell-structure.belanno"
+DEFINE ANNOTATION NervousSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-nervous-system.belanno"
+DEFINE ANNOTATION Species AS URL "http://resource.belframework.org/belframework/1.0/annotation/species-taxonomy-id.belanno"
+DEFINE ANNOTATION Tissue AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-tissue.belanno"
+DEFINE ANNOTATION DigestiveSystem AS URL "http://resource.belframework.org/belframework/1.0/annotation/mesh-digestive-system.belanno"
+
+#Statements section
+
+SET STATEMENT_GROUP = "Group pmid:15225871"
+SET Citation = {"PubMed","Gene","15225871"}
+
+
+SET Evidence = "The binding of RB, p107, or p130 has two simultaneous consequences: (1) binding prevents E2F from interacting with transcriptional co-activators (e.g., p300);"
+
+complexabundance(proteinabundance(HGNC:RB1),proteinabundance(PFH:E2F Family)) directlyDecreases complexabundance(proteinabundance(PFH:E2F Family),proteinabundance(HGNC:EP300))
+complexabundance(proteinabundance(HGNC:RBL1),proteinabundance(PFH:E2F Family)) directlyDecreases complexabundance(proteinabundance(PFH:E2F Family),proteinabundance(HGNC:EP300))
+complexabundance(proteinabundance(HGNC:RBL2),proteinabundance(PFH:E2F Family)) directlyDecreases complexabundance(proteinabundance(PFH:E2F Family),proteinabundance(HGNC:EP300))
+
+SET Evidence = "RB and the related family members p107 and p130 can each bind E2F to repress genes that are otherwise important for progression from G1 to S phase."
+
+complexabundance(proteinabundance(HGNC:RBL2),proteinabundance(PFH:E2F Family)) decreases biologicalprocess(GO:G1/S transition of mitotic cell cycle)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15917664"
+SET Citation = {"PubMed","Cell cycle (Georgetown, Tex.)","15917664"}
+
+
+SET Evidence = "Nuclear import triggered by oxidative stress results in association of FOXO proteins with proteins that have histone acetylase activity, such as p300/CBP and p300/CBP-associated factor (PCAF)."
+
+biologicalprocess(GO:response to oxidative stress) increases complexabundance(proteinabundance(PFH:FOXO Family),proteinabundance(HGNC:EP300))
+
+SET Evidence = "Akt-dependent phosphorylation reduces the DNA-binding activity of FOXO, interferes with binding to the co-activators p300/CBP, and inactivates the FOXO nuclear translocation signal"
+
+kinaseactivity(proteinabundance(HGNC:AKT1)) decreases complexabundance(proteinabundance(HGNC:AKT1),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:15350900"
+SET Citation = {"PubMed","Trends in molecular medicine","15350900"}
+
+
+SET Evidence = "In a second hydroxylation-dependent control, b-hydroxylation of an asparaginyl residue in the C-terminal activation domain of HIF-a (N803 in human HIF-1a) is regulated by a HIF asparaginyl hydroxylase called FIH (factor inhibiting HIF) [62,63]. Hydroxylation at this site prevents the binding of the transcriptional co-activators p300/CBP (CREB binding protein). Under normoxic conditions, these hydroxylation reactions provide a dual mechanism for HIF inactivation that involves proteolytic destruction and the inhibition of transcriptional activity [64]."
+
+proteinabundance(HGNC:HIF1A,proteinmodification(H,N,803)) directlyDecreases complexabundance(proteinabundance(HGNC:HIF1A),proteinabundance(HGNC:EP300))
+complexabundance(proteinabundance(HGNC:HIF1A),proteinabundance(HGNC:EP300)) directlyIncreases transcriptionalactivity(proteinabundance(HGNC:HIF1A))
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:19151761"
+SET Citation = {"PubMed","Oncogene","19151761"}
+
+
+SET Evidence = "In addition, loss of function of the pRb family member p130 may be part of tumor progression in several types of human cancers, including lung adenocarcinomas (Claudio et al., 2000; Cinti et al., 2005), but a causal role for loss of p130 in lung cancer progression also remains to be determined. "
+
+proteinabundance(HGNC:RBL2) negativeCorrelation pathology(MESHD:Adenocarcinoma)
+
+UNSET STATEMENT_GROUP
+
+SET STATEMENT_GROUP = "Group pmid:12778166"
+SET Citation = {"PubMed","Nature medicine","12778166"}
+
+
+SET Evidence = "In a second hydroxylation-dependent control, beta-hydroxylation of an asparaginyl residue in the C-terminal activation domain of HIF-alpha (Asn803 in human HIF-1alpha)35 is regulated by a HIF asparaginyl hydroxylase33, 36 termed FIH (factor inhibiting HIF)37. Hydroxylation at this site blocks interaction of the HIF-alpha C-terminal activation domain with the transcriptional coactivator p300. "
+
+proteinabundance(HGNC:HIF1A,proteinmodification(H,N,803)) directlyDecreases complexabundance(proteinabundance(HGNC:HIF1A),proteinabundance(HGNC:EP300))
+
+UNSET STATEMENT_GROUP

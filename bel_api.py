@@ -5,6 +5,11 @@ import os
 import subprocess
 import pkg_resources
 
+#
+# This file is not currently used and will be re-written
+#
+# It is retained for the moment (Jan 2017) as example code for using bel.rb
+#
 
 
 def process_ndex_neighborhood(bel_script):

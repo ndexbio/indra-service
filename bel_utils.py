@@ -300,7 +300,7 @@ class BelCx:
 
     def get_label_from_term(self, term):
         if isinstance(term, dict):
-            function = term["f"].lower()
+            function = term["f"] #.lower()
             if function.startswith('bel:'):
                 function = function[4:len(function)]
             arg_labels = []
@@ -308,7 +308,25 @@ class BelCx:
                 arg_label = self.get_label_from_term(arg)
                 arg_labels.append(arg_label)
             return "%s(%s)" % (function, ",".join(arg_labels))
-        return str(term)
+        else:
+            output_term = str(term)
+            components = output_term.split(":")
+            if(len(components) > 1):
+                prefix = components[0]
+                suffix = ":".join(components[1:])
+
+                if not suffix.isalnum():
+                    output_term = '%s:"%s"' % (prefix, suffix)
+                    return output_term
+                else:
+                    return output_term
+
+            else:
+                if not output_term.isalnum():
+                    output_term = '"%s"' % (output_term)
+                    return output_term
+                else:
+                    return output_term
 
     def get_statement_from_edge(self, edge_id):
         source_node_id, target_node_id, interaction = self.edge_map[edge_id]

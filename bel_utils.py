@@ -137,19 +137,23 @@ def write_utf(output,string):
 
 #BEL2RDFPATH = "/Users/dexter/.gem/ruby/2.0.0/gems/bel-1.0.1/bin/bel2rdf"
 
-BEL2RDFPATH = "/Users/dexter/.gem/ruby/2.0.0/bin/bel2rdf"
+#BEL2RDFPATH = "/Users/dexter/.gem/ruby/2.0.0/bin/bel2rdf"
+
+BEL2RDFPATH = '/home/dwelker/.gem/ruby/2.0.0/bin/bel2rdf'
 
 #RUBYPATH = "/Users/dexter/.gem/ruby/2.0.0/bin/ruby"
 
-RUBYPATH = "/usr/local/bin/ruby"
+#RUBYPATH = "/usr/local/bin/ruby"
+
+RUBYPATH = "/usr/bin/ruby2.0"
 
 def bel_script_to_rdf(bel_script):
     with open('tmp.bel', 'wt') as fh:
         fh.write(bel_script)
 
-    bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
+    #bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
 
-    #bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
+    bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
 
     print "converting BELscript to BEL RDF:  %s" % bel2rdf_cmd
 

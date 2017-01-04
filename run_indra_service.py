@@ -58,6 +58,8 @@ def run_bel_script_query_get(network_id):
     query_string = request.query.searchString or None
     engine = app.config.get('engine')
     bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    if not bel_script:
+        return ''
     return bel_script
 
 @route('/network/<network_id>/asBELscript/query', method='POST')
@@ -66,6 +68,8 @@ def run_bel_script_query(network_id):
     query_string = dict.get('searchString')
     engine = app.config.get('engine')
     bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    if not bel_script:
+        return ''
     return bel_script
 
 @route('/network/<network_id>/asBELRDF/query', method='GET')
@@ -73,6 +77,9 @@ def run_bel_script_query_get(network_id):
     query_string = request.query.searchString or None
     engine = app.config.get('engine')
     bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    if not bel_script:
+        return ''
+
     rdf = bu.bel_script_to_rdf(bel_script)
     return rdf
 
@@ -82,6 +89,8 @@ def run_bel_script_query(network_id):
     query_string = dict.get('searchString')
     engine = app.config.get('engine')
     bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    if not bel_script:
+        return ''
     rdf = bu.bel_script_to_rdf(bel_script)
     return rdf
 

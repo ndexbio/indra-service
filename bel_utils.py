@@ -519,7 +519,7 @@ class BELQueryEngine:
         return bel_cx
 
     def bel_neighborhood_query(self, network_id, query_string, verbose=False, use_annotations=False):
-        if len(query_string.strip() < 1):
+        if len(query_string.strip()) < 1:
             return None
 
         if network_id in self.network_cache:

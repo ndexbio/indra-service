@@ -136,7 +136,7 @@ def run_bel_script_query(network_id):
     return rdf
 
 
-run(app, host='0.0.0.0', port=8023)
+run(app, host='0.0.0.0', port=80)
 
 # def get_neighborhood_as_wrapped_network(ndex, network_id, search_string):
 #     summary = ndex.get_network_summary(network_id)

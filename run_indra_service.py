@@ -16,7 +16,6 @@ parser.add_argument('--debug', dest='debug', action='store_const',
                     const=True, default=False,
                     help='debug mode')
 
-
 arg = parser.parse_args()
 
 if arg.debug:
@@ -54,13 +53,40 @@ def get_network_summary(networkId):
     ndex = app.config.get('ndex')
     return ndex.get_network_summary(networkId)
 
-@route('/network/<network_id>/asBELscript/query_new', method='GET')
+@route('/network/<network_id>/asBELscript/query', method='GET')
 def run_bel_script_query_get(network_id):
     query_string = request.query.searchString or None
     engine = app.config.get('engine')
     bel_script = engine.bel_neighborhood_query(network_id, query_string)
     return bel_script
 
+@route('/network/<network_id>/asBELscript/query', method='POST')
+def run_bel_script_query(network_id):
+    dict = json.load(request.body)
+    query_string = dict.get('searchString')
+    engine = app.config.get('engine')
+    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    return bel_script
+
+@route('/network/<network_id>/asBELRDF/query', method='GET')
+def run_bel_script_query_get(network_id):
+    query_string = request.query.searchString or None
+    engine = app.config.get('engine')
+    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    rdf = bu.bel_script_to_rdf(bel_script)
+    return rdf
+
+@route('/network/<network_id>/asBELRDF/query', method='POST')
+def run_bel_script_query(network_id):
+    dict = json.load(request.body)
+    query_string = dict.get('searchString')
+    engine = app.config.get('engine')
+    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    rdf = bu.bel_script_to_rdf(bel_script)
+    return rdf
+
+##==================================================
+# Deprecated, remove soon - Dexter 1/3/17
 def belscript_query(network_id, search_string):
     ndex = app.config.get('ndex')
 
@@ -72,27 +98,27 @@ def belscript_query(network_id, search_string):
     bel_script = bel_cx.to_bel_script()
     return bel_script
 
-@route('/network/<network_id>/asBELscript/query', method='POST')
+@route('/network/<network_id>/asBELscript/query_old', method='POST')
 def run_bel_script_query(network_id):
     dict = json.load(request.body)
     search_string = dict.get('searchString')
     bel_script = belscript_query(network_id, search_string)
     return bel_script
 
-@route('/network/<network_id>/asBELscript/query', method='GET')
+@route('/network/<network_id>/asBELscript/query_old', method='GET')
 def run_bel_script_query_get(network_id):
     search_string = request.query.searchString or None
     bel_script = belscript_query(network_id, search_string)
     return bel_script
 
-@route('/network/<network_id>/asBELRDF/query', method='GET')
+@route('/network/<network_id>/asBELRDF/query_old', method='GET')
 def run_bel_script_query_get(network_id):
     search_string = request.query.searchString or None
     bel_script = belscript_query(network_id, search_string)
     rdf = bu.bel_script_to_rdf(bel_script)
     return rdf
 
-@route('/network/<network_id>/asBELRDF/query', method='POST')
+@route('/network/<network_id>/asBELRDF/query_old', method='POST')
 def run_bel_script_query(network_id):
     dict = json.load(request.body)
     search_string = dict.get('searchString')

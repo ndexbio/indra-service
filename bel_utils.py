@@ -519,6 +519,9 @@ class BELQueryEngine:
         return bel_cx
 
     def bel_neighborhood_query(self, network_id, query_string, verbose=False, use_annotations=False):
+        if len(query_string.trim() < 1):
+            return None
+
         if network_id in self.network_cache:
             # TODO check if cache is valid
             bel_cx = self.network_cache[network_id]
@@ -526,7 +529,12 @@ class BELQueryEngine:
             bel_cx = self.bel_cx_from_ndex(network_id)
         # find the query nodes
         query_terms = query_string.split()
+
         query_node_ids = bel_cx.get_nodes_referencing_term_strings(query_terms)
+
+        if len(query_node_ids) < 1:
+            return None
+
         print "found %s nodes for query %s" % (len(query_node_ids), query_string)
         if verbose:
             for node_id in query_node_ids:

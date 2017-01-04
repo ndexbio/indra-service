@@ -11,6 +11,7 @@ import subprocess
 import os
 import copy
 import ndex.client as nc
+import time
 
 def get_source_format(network_summary):
     for prop in network_summary.get("properties"):
@@ -140,22 +141,27 @@ BEL2RDFPATH = "/Users/dexter/.gem/ruby/2.0.0/bin/bel2rdf"
 
 #RUBYPATH = "/Users/dexter/.gem/ruby/2.0.0/bin/ruby"
 
-RUBYPATH = "/usr/bin/ruby"
+RUBYPATH = "/usr/local/bin/ruby"
 
 def bel_script_to_rdf(bel_script):
     with open('tmp.bel', 'wt') as fh:
         fh.write(bel_script)
 
-    bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
+    bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
 
-    print bel2rdf_cmd
+    #bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
 
-    print str(bel2rdf_cmd.split(' '))
+    print "converting BELscript to BEL RDF:  %s" % bel2rdf_cmd
+
+    # print str(bel2rdf_cmd.split(' '))
 
     DEVNULL = open(os.devnull, 'wb')
 
     with open('tmp.rdf', 'wt') as fh:
+        start_time = time.time()
         subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
+        end_time = time.time()
+        print "converted in %s" % ((end_time - start_time))
 
     # change formatting from original bel2rdf output
     with open('tmp.rdf', 'rt') as fh:
@@ -173,12 +179,14 @@ class BelCx:
     # - direct links from citations to edges. All edges are connected as: citation -> support -> edge
     # - supports or citations for nodes (ie. single term statements...)
     #
-    def __init__(self, cx):
+    def __init__(self, cx, verbose=False):
         self.cx = cx
+        self.unused_cx = []
         self.citation_map = {}          # citation ids -> citations
         self.support_map = {}           # support ids -> supports
         self.function_term_map = {}     # node ids - function terms
         self.edge_map = {}              # edge ids -> edges  (which point to nodes)
+        self.edge_attribute_map = {}
         self.context = {}               # context object for BEL namespaces
         self.node_label_map = {}        # node ids -> node labels
         self.node_to_upstream_edge_map = {}
@@ -186,6 +194,7 @@ class BelCx:
         self.support_to_edge_map= {}    # support ids -> edge id lists
         self.citation_to_support_map = {} # citation_ids -> support id lists
         self.unused_cx = []
+        self.annotation_names = []
 
         for fragment in cx:
             if '@context' in fragment:
@@ -229,13 +238,13 @@ class BelCx:
                     self.node_label_map[function_term["po"]] = self.get_label_from_term(function_term)
                     self.function_term_map[function_term["po"]] = function_term
 
-            if 'citations' in fragment:
+            elif 'citations' in fragment:
                 for citation in fragment['citations']:
                     attributes = copy.deepcopy(citation)
                     attributes.pop("@id")
                     self.citation_map[citation["@id"]] = attributes
 
-            if 'supports' in fragment:
+            elif 'supports' in fragment:
                 for support in fragment['supports']:
                     attributes = copy.deepcopy(support)
                     attributes.pop("@id")
@@ -261,6 +270,29 @@ class BelCx:
 
             else:
                 self.unused_cx.append(fragment)
+
+        for name,uri in self.context.iteritems():
+            if uri.endswith('.belanno'):
+                self.annotation_names.append(name)
+
+        for fragment in self.cx:
+            if 'edgeAttributes' in fragment:
+                count = 0
+                for edge_attribute in fragment['edgeAttributes']:
+                    count = count + 1
+                    if verbose and count % 100 == 0:
+                        print str(count)
+
+                    name = edge_attribute['n']
+                    if name in self.annotation_names:
+                        edge_id = edge_attribute['po']
+                        if edge_id in self.edge_attribute_map:
+                            attributes = self.edge_attribute_map[edge_id]
+                        else:
+                            attributes = {}
+                        value = edge_attribute['v']
+                        attributes[name] = value
+                        self.edge_attribute_map[edge_id] = attributes
 
     def get_label_from_term(self, term):
         if isinstance(term, dict):
@@ -345,7 +377,7 @@ class BelCx:
                     break
         return list(set(citation_ids))
 
-    def to_bel_script(self, citation_filter_ids=None, support_filter_ids=None, edge_filter_ids=None):
+    def to_bel_script(self, citation_filter_ids=None, support_filter_ids=None, edge_filter_ids=None, use_annotations=False):
         output = StringIO.StringIO()
 
         write_utf(output,'#Properties section\n')
@@ -416,9 +448,21 @@ class BelCx:
                     for edge_id in edge_list:
                         if edge_filter_ids and edge_id not in edge_filter_ids:
                             continue
+
                         statement_string = self.get_statement_from_edge(edge_id)
-                        if statement_string: # ok, output this statement
+
+                        if statement_string: # ok, output this statement with annotations, if any
+                            annotations = {}
+                            if use_annotations and edge_id in self.edge_attribute_map:
+                                annotations = self.edge_attribute_map[edge_id]
+
+                            for name, value in annotations.iteritems():
+                                write_utf(output, ('SET %s = %s\n' % (name, value)))
+
                             write_utf(output,"%s\n" % statement_string)
+
+                            for name, _ in annotations.iteritems():
+                                write_utf(output, ('UNSET %s\n' % (name)))
 
             write_utf(output,'\nUNSET STATEMENT_GROUP\n')
 
@@ -438,15 +482,21 @@ class BELQueryEngine:
 
 
     def bel_cx_from_ndex(self, network_id):
+        start_time = time.time()
         response = self.ndex.get_network_as_cx_stream(network_id)
+        end_time = time.time()
         cx = response.json()
-        print "received CX"
+        print "received CX in %s " % (end_time - start_time)
+
+        start_time = time.time()
         bel_cx = BelCx(cx)
-        print "created BelCx object"
+        end_time = time.time()
+        print "created BelCx object in %s"  % (end_time - start_time)
+
         self.network_cache[network_id] = bel_cx
         return bel_cx
 
-    def bel_neighborhood_query(self, network_id, query_string):
+    def bel_neighborhood_query(self, network_id, query_string, verbose=False, use_annotations=False):
         if network_id in self.network_cache:
             # TODO check if cache is valid
             bel_cx = self.network_cache[network_id]
@@ -456,33 +506,37 @@ class BELQueryEngine:
         query_terms = query_string.split()
         query_node_ids = bel_cx.get_nodes_referencing_term_strings(query_terms)
         print "found %s nodes for query %s" % (len(query_node_ids), query_string)
-        for node_id in query_node_ids:
-            ft = bel_cx.function_term_map[node_id]
-            print "  %s" % bel_cx.get_label_from_term(ft)
+        if verbose:
+            for node_id in query_node_ids:
+                ft = bel_cx.function_term_map[node_id]
+                print "  %s" % bel_cx.get_label_from_term(ft)
 
         # find the search result edge ids and node ids
         edge_ids = bel_cx.get_edges_adjacent_to_nodes(query_node_ids)
         print "found %s adjacent edges" % (len(edge_ids))
-        for edge_id in edge_ids:
-            print bel_cx.get_statement_from_edge(edge_id)
+        if verbose:
+            for edge_id in edge_ids:
+                print bel_cx.get_statement_from_edge(edge_id)
 
         # find the support ids for the edges
         support_ids = bel_cx.get_supports_for_edges(edge_ids)
         print "found %s supports for the edges" % (len(support_ids))
-        for support_id in support_ids:
-            support = bel_cx.support_map[support_id]
-            print "--------"
-            print support.get('text')
+        if verbose:
+            for support_id in support_ids:
+                support = bel_cx.support_map[support_id]
+                print "--------"
+                print support.get('text')
 
         # find the citation ids for the supports
         citation_ids = bel_cx.get_citations_for_supports(support_ids)
         print "found %s citations for the supports" % (len(citation_ids))
-        for citation_id in citation_ids:
-            citation = bel_cx.citation_map[citation_id]
-            print citation['dc:title']
+        if verbose:
+            for citation_id in citation_ids:
+                citation = bel_cx.citation_map[citation_id]
+                print citation['dc:title']
 
         # create BELscript from network while filtering on the citation, support, edge, and node ids
-        return bel_cx.to_bel_script(citation_filter_ids=citation_ids, support_filter_ids=support_ids, edge_filter_ids=edge_ids)
+        return bel_cx.to_bel_script(citation_filter_ids=citation_ids, support_filter_ids=support_ids, edge_filter_ids=edge_ids, use_annotations=use_annotations)
 
 
 #=======================================================

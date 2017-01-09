@@ -565,6 +565,9 @@ class BELQueryEngine:
                 citation = bel_cx.citation_map[citation_id]
                 print citation['dc:title']
 
+        if len(edge_ids) < 1 and len(support_ids) < 1 and len(citation_ids) < 1:
+            return None
+
         # create BELscript from network while filtering on the citation, support, edge, and node ids
         return bel_cx.to_bel_script(citation_filter_ids=citation_ids, support_filter_ids=support_ids, edge_filter_ids=edge_ids, use_annotations=use_annotations)
 

@@ -88,7 +88,11 @@ def run_bel_script_query(network_id):
     dict = json.load(request.body)
     query_string = dict.get('searchString')
     engine = app.config.get('engine')
-    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    try:
+        bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    except RuntimeError as re:
+        return {"Error": True, "message": re.message}
+
     if not bel_script:
         return ''
     rdf = bu.bel_script_to_rdf(bel_script)

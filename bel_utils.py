@@ -533,7 +533,7 @@ class BELQueryEngine:
         query_node_ids = bel_cx.get_nodes_referencing_term_strings(query_terms)
 
         if len(query_node_ids) < 1:
-            return None
+            raise RuntimeError("No nodes found")
 
         print "found %s nodes for query %s" % (len(query_node_ids), query_string)
         if verbose:
@@ -566,7 +566,7 @@ class BELQueryEngine:
                 print citation['dc:title']
 
         if len(edge_ids) < 1 and len(support_ids) < 1 and len(citation_ids) < 1:
-            return None
+            raise RuntimeError("No edges, supports or citations found")
 
         # create BELscript from network while filtering on the citation, support, edge, and node ids
         return bel_cx.to_bel_script(citation_filter_ids=citation_ids, support_filter_ids=support_ids, edge_filter_ids=edge_ids, use_annotations=use_annotations)

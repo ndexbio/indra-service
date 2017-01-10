@@ -57,31 +57,44 @@ def get_network_summary(networkId):
 def run_bel_script_query_get(network_id):
     query_string = request.query.searchString or None
     engine = app.config.get('engine')
-    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    try:
+        bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
     if not bel_script:
-        return ''
-    return bel_script
+        return {"content": ''}
+    return {"content": bel_script}
 
 @route('/network/<network_id>/asBELscript/query', method='POST')
 def run_bel_script_query(network_id):
     dict = json.load(request.body)
     query_string = dict.get('searchString')
     engine = app.config.get('engine')
-    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    try:
+        bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
     if not bel_script:
-        return ''
-    return bel_script
+        return {"content": ''}
+
+    return {"content": bel_script}
 
 @route('/network/<network_id>/asBELRDF/query', method='GET')
 def run_bel_script_query_get(network_id):
     query_string = request.query.searchString or None
     engine = app.config.get('engine')
-    bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    try:
+        bel_script = engine.bel_neighborhood_query(network_id, query_string)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
     if not bel_script:
-        return ''
+        return {"content": ''}
 
     rdf = bu.bel_script_to_rdf(bel_script)
-    return rdf
+    return {"content": rdf}
 
 @route('/network/<network_id>/asBELRDF/query', method='POST')
 def run_bel_script_query(network_id):
@@ -91,12 +104,13 @@ def run_bel_script_query(network_id):
     try:
         bel_script = engine.bel_neighborhood_query(network_id, query_string)
     except RuntimeError as re:
-        return {"Error": True, "message": re.message}
+        return {"error": True, "message": re.message}
 
     if not bel_script:
-        return ''
+        return {"content": ''}
+
     rdf = bu.bel_script_to_rdf(bel_script)
-    return rdf
+    return {"content": rdf}
 
 ##==================================================
 # Deprecated, remove soon - Dexter 1/3/17

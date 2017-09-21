@@ -32,26 +32,40 @@ app.config['verbose'] = arg.verbose
 
 app.config['ndex'] = nc.Ndex()
 
-app.config['engine'] = bu.BELQueryEngine()
+special_network_ids = [
+    "9ea3c170-01ad-11e5-ac0f-000c29cb28fb",
+    "55c84fa4-01b4-11e5-ac0f-000c29cb28fb"
+]
+
+app.config['engine'] = bu.BELQueryEngine(special_network_ids = special_network_ids)
 
 @route('/hello/<name>')
 def index(name):
-    verbose_mode = app.config.get("verbose")
-    if verbose_mode:
-        return template('<b>This is the test method saying Hello, {{name}} verbosely</b>!', name=name)
-    else:
-        return template('<b>Hello {{name}}</b>!', name=name)
+    try:
+        verbose_mode = app.config.get("verbose")
+        if verbose_mode:
+            return template('<b>This is the test method saying Hello, {{name}} verbosely</b>!', name=name)
+        else:
+            return template('<b>Hello {{name}}</b>!', name=name)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
 
 @route('/ruby_info')
 def inf():
-   out= subprocess.check_output(["gem", "list"])
-   return template(out)
+    try:
+        out = subprocess.check_output(["gem", "list"])
+        return template(out)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
 
 # GET the network summary
 @route('/network/<networkId>')
 def get_network_summary(networkId):
-    ndex = app.config.get('ndex')
-    return ndex.get_network_summary(networkId)
+    try:
+        ndex = app.config.get('ndex')
+        return ndex.get_network_summary(networkId)
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
 
 @route('/network/<network_id>/asBELscript/query', method='GET')
 def run_bel_script_query_get(network_id):

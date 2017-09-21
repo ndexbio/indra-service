@@ -500,10 +500,9 @@ class BELQueryEngine:
 
         self.ndex = nc.Ndex()
         for network_id in self.special_network_ids:
-            self.bel_cx_from_ndex(network_id)
+            self.bel_cx_from_ndex(network_id, cache=True)
 
-
-    def bel_cx_from_ndex(self, network_id):
+    def bel_cx_from_ndex(self, network_id, cache=False):
         start_time = time.time()
         response = self.ndex.get_network_as_cx_stream(network_id)
         end_time = time.time()
@@ -515,10 +514,12 @@ class BELQueryEngine:
         end_time = time.time()
         print "created BelCx object in %s"  % (end_time - start_time)
 
-        self.network_cache[network_id] = bel_cx
+        if cache:
+            self.network_cache[network_id] = bel_cx
         return bel_cx
 
     def bel_neighborhood_query(self, network_id, query_string, verbose=False, use_annotations=False):
+        start_time = time.time()
         if len(query_string.strip()) < 1:
             return None
 
@@ -533,7 +534,7 @@ class BELQueryEngine:
         query_node_ids = bel_cx.get_nodes_referencing_term_strings(query_terms)
 
         if len(query_node_ids) < 1:
-            raise RuntimeError("No nodes found")
+            raise RuntimeError("No nodes found for " + query_string + " in " + network_id)
 
         print "found %s nodes for query %s" % (len(query_node_ids), query_string)
         if verbose:
@@ -568,10 +569,17 @@ class BELQueryEngine:
         if len(edge_ids) < 1 and len(support_ids) < 1 and len(citation_ids) < 1:
             raise RuntimeError("No edges, supports or citations found")
 
+        end_time = time.time()
+        print "performed query in %s"  % (end_time - start_time)
+
         # create BELscript from network while filtering on the citation, support, edge, and node ids
         return bel_cx.to_bel_script(citation_filter_ids=citation_ids, support_filter_ids=support_ids, edge_filter_ids=edge_ids, use_annotations=use_annotations)
 
 
+#=======================================================
+#
+# Old - non-CX class - do not use
+#
 #=======================================================
 
 class NetworkWrapper:

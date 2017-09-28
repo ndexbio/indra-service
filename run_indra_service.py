@@ -70,8 +70,15 @@ def index(name):
 @route('/status')
 def status():
     try:
+        q = request.query['memsize']
+
         engine = app.config.get('engine')
-        rss_limit = 100000000
+        rss_limit = 500000000
+        if q:
+            if type(q) is str:
+                rss_limit = long(q)
+            else:
+                rss_limit = q
         result = {"time": "time tbd"}
         large_corpus_uuid = "9ea3c170-01ad-11e5-ac0f-000c29cb28fb"
 

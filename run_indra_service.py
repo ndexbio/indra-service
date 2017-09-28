@@ -6,6 +6,9 @@ import ndex.client as nc
 import json
 import bel_utils as bu
 import subprocess
+import os
+import psutil
+
 
 parser = argparse.ArgumentParser(description='run the indra service')
 
@@ -42,6 +45,17 @@ special_network_ids = [
 
 app.config['engine'] = bu.BELQueryEngine(special_network_ids = special_network_ids)
 
+def bel_gem_installed():
+    try:
+        installed = subprocess.check_output(["gem", "list", "bel", "-i"])
+        print("installed = " + installed)
+        if installed == "true\n":
+            return True
+        else:
+            return False
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
 @route('/hello/<name>')
 def index(name):
     try:
@@ -53,14 +67,51 @@ def index(name):
     except RuntimeError as re:
         return {"error": True, "message": re.message}
 
-@route('/bel_installed')
-def inf():
+@route('/status')
+def status():
+    try:
+        engine = app.config.get('engine')
+        rss_limit = 100000000
+        result = {"time": "time tbd"}
+        large_corpus_uuid = "9ea3c170-01ad-11e5-ac0f-000c29cb28fb"
+
+        gem_installed = bel_gem_installed()
+        result["bel_gem_installed"] = gem_installed
+
+        # run a test query
+        # NFKB1 neighborhood on BEL Large Corpus
+        bel_script = engine.bel_neighborhood_query(large_corpus_uuid, 'NFKB1')
+
+        if bel_script:
+            result["bel_query"] = "OK"
+            if gem_installed:
+                # convert the result to RDF
+                bu.bel_script_to_rdf(bel_script)
+                result["bel_rdf"] = "DONE"
+        else:
+            result["bel_query"] = "FAILED"
+
+        # check memory use
+        this_process = psutil.Process(os.getpid())
+        rss = this_process.memory_info().rss
+        result['rss'] = rss
+        if rss > rss_limit:
+            result['memory_status'] = "high memory usage"
+
+        # return the status
+        return result
+
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
+@route('/bel_gem_installed')
+def check_bel_gem():
     try:
         return {"content": str(bu.bel_gem_installed())}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
 
-@route('/ruby_ok')
+@route('/inf')
 def inf():
     try:
         out = subprocess.check_output(["gem", "list"])

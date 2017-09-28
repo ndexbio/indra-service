@@ -18,6 +18,9 @@ parser.add_argument('--debug', dest='debug', action='store_const',
 
 arg = parser.parse_args()
 
+if not bu.bel_gem_installed():
+    raise Exception("The bel ruby gem is not installed. Aborting INDRA service start.")
+
 if arg.debug:
     print "Debug mode engaged"
     debug()
@@ -50,7 +53,14 @@ def index(name):
     except RuntimeError as re:
         return {"error": True, "message": re.message}
 
-@route('/ruby_info')
+@route('/bel_installed')
+def inf():
+    try:
+        return {"content": str(bu.bel_gem_installed())}
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
+@route('/ruby_ok')
 def inf():
     try:
         out = subprocess.check_output(["gem", "list"])
@@ -69,106 +79,105 @@ def get_network_summary(networkId):
 
 @route('/network/<network_id>/asBELscript/query', method='GET')
 def run_bel_script_query_get(network_id):
-    query_string = request.query.searchString or None
-    engine = app.config.get('engine')
     try:
+        query_string = request.query.searchString or None
+        engine = app.config.get('engine')
         bel_script = engine.bel_neighborhood_query(network_id, query_string)
+        if bel_script:
+            return {"content": bel_script}
+        else:
+            return {"content": ''}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
-
-    if not bel_script:
-        return {"content": ''}
-    return {"content": bel_script}
 
 @route('/network/<network_id>/asBELscript/query', method='POST')
 def run_bel_script_query(network_id):
-    dict = json.load(request.body)
-    query_string = dict.get('searchString')
-    engine = app.config.get('engine')
     try:
+        dict = json.load(request.body)
+        query_string = dict.get('searchString')
+        engine = app.config.get('engine')
+        print("POST bel neighborhood: "   + query_string + " on " + network_id)
         bel_script = engine.bel_neighborhood_query(network_id, query_string)
+        if bel_script:
+            return {"content": bel_script}
+        else:
+            return {"content": ''}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
-
-    if not bel_script:
-        return {"content": ''}
-
-    return {"content": bel_script}
 
 @route('/network/<network_id>/asBELRDF/query', method='GET')
 def run_bel_script_query_get(network_id):
-    query_string = request.query.searchString or None
-    engine = app.config.get('engine')
     try:
+        query_string = request.query.searchString or None
+        engine = app.config.get('engine')
+        print("GET bel neighborhood: "   + query_string + " on " + network_id)
         bel_script = engine.bel_neighborhood_query(network_id, query_string)
+        if bel_script:
+            rdf = bu.bel_script_to_rdf(bel_script)
+            return {"content": rdf}
+        else:
+            return {"content": ''}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
-
-    if not bel_script:
-        return {"content": ''}
-
-    rdf = bu.bel_script_to_rdf(bel_script)
-    return {"content": rdf}
 
 @route('/network/<network_id>/asBELRDF/query', method='POST')
 def run_bel_script_query(network_id):
-    dict = json.load(request.body)
-    query_string = dict.get('searchString')
-    engine = app.config.get('engine')
     try:
+        dict = json.load(request.body)
+        query_string = dict.get('searchString')
+        engine = app.config.get('engine')
+        print("POST rdf neighborhood: "   + query_string + " on " + network_id)
         bel_script = engine.bel_neighborhood_query(network_id, query_string)
+        if bel_script:
+            rdf = bu.bel_script_to_rdf(bel_script)
+            return {"content": rdf}
+        else:
+            return {"content": ''}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
 
-    if not bel_script:
-        return {"content": ''}
-
-    rdf = bu.bel_script_to_rdf(bel_script)
-    return {"content": rdf}
+run(app, host='0.0.0.0', port=8011)
 
 ##==================================================
 # Deprecated, remove soon - Dexter 1/3/17
-def belscript_query(network_id, search_string):
-    ndex = app.config.get('ndex')
-
-    if not search_string:
-        abort(401, "requires searchString parameter")
-
-    cx = ndex.get_neighborhood(network_id, search_string)
-    bel_cx = bu.BelCx(cx)
-    bel_script = bel_cx.to_bel_script()
-    return bel_script
-
-@route('/network/<network_id>/asBELscript/query_old', method='POST')
-def run_bel_script_query(network_id):
-    dict = json.load(request.body)
-    search_string = dict.get('searchString')
-    bel_script = belscript_query(network_id, search_string)
-    return bel_script
-
-@route('/network/<network_id>/asBELscript/query_old', method='GET')
-def run_bel_script_query_get(network_id):
-    search_string = request.query.searchString or None
-    bel_script = belscript_query(network_id, search_string)
-    return bel_script
-
-@route('/network/<network_id>/asBELRDF/query_old', method='GET')
-def run_bel_script_query_get(network_id):
-    search_string = request.query.searchString or None
-    bel_script = belscript_query(network_id, search_string)
-    rdf = bu.bel_script_to_rdf(bel_script)
-    return rdf
-
-@route('/network/<network_id>/asBELRDF/query_old', method='POST')
-def run_bel_script_query(network_id):
-    dict = json.load(request.body)
-    search_string = dict.get('searchString')
-    bel_script = belscript_query(network_id, search_string)
-    rdf = bu.bel_script_to_rdf(bel_script)
-    return rdf
-
-
-run(app, host='0.0.0.0', port=80)
+# def belscript_query(network_id, search_string):
+#     ndex = app.config.get('ndex')
+#
+#     if not search_string:
+#         abort(401, "requires searchString parameter")
+#
+#     cx = ndex.get_neighborhood(network_id, search_string)
+#     bel_cx = bu.BelCx(cx)
+#     bel_script = bel_cx.to_bel_script()
+#     return bel_script
+#
+# @route('/network/<network_id>/asBELscript/query_old', method='POST')
+# def run_bel_script_query(network_id):
+#     dict = json.load(request.body)
+#     search_string = dict.get('searchString')
+#     bel_script = belscript_query(network_id, search_string)
+#     return bel_script
+#
+# @route('/network/<network_id>/asBELscript/query_old', method='GET')
+# def run_bel_script_query_get(network_id):
+#     search_string = request.query.searchString or None
+#     bel_script = belscript_query(network_id, search_string)
+#     return bel_script
+#
+# @route('/network/<network_id>/asBELRDF/query_old', method='GET')
+# def run_bel_script_query_get(network_id):
+#     search_string = request.query.searchString or None
+#     bel_script = belscript_query(network_id, search_string)
+#     rdf = bu.bel_script_to_rdf(bel_script)
+#     return rdf
+#
+# @route('/network/<network_id>/asBELRDF/query_old', method='POST')
+# def run_bel_script_query(network_id):
+#     dict = json.load(request.body)
+#     search_string = dict.get('searchString')
+#     bel_script = belscript_query(network_id, search_string)
+#     rdf = bu.bel_script_to_rdf(bel_script)
+#     return rdf
 
 # def get_neighborhood_as_wrapped_network(ndex, network_id, search_string):
 #     summary = ndex.get_network_summary(network_id)

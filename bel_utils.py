@@ -13,6 +13,17 @@ import copy
 import ndex.client as nc
 import time
 
+def bel_gem_installed():
+    try:
+        installed = subprocess.check_output(["gem", "list", "bel", "-i"])
+        print("installed = " + installed)
+        if installed == "true\n":
+            return True
+        else:
+            return False
+    except RuntimeError as re:
+        return {"error": True, "message": re.message}
+
 def get_source_format(network_summary):
     for prop in network_summary.get("properties"):
         name = prop.get("predicateString")
@@ -151,9 +162,9 @@ def bel_script_to_rdf(bel_script):
     with open('tmp.bel', 'wt') as fh:
         fh.write(bel_script)
 
-    #bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
+    bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
 
-    bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
+    #bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
 
     print "converting BELscript to BEL RDF:  %s" % bel2rdf_cmd
 

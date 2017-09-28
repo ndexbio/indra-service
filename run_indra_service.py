@@ -25,13 +25,13 @@ if not bu.bel_gem_installed():
     raise Exception("The bel ruby gem is not installed. Aborting INDRA service start.")
 
 if arg.debug:
-    print "Debug mode engaged"
+    print("Debug mode engaged")
     debug()
 
 if arg.verbose:
-    print "Starting indra service in verbose mode"
+    print("Starting indra service in verbose mode")
 else:
-    print "Starting indra service"
+    print("Starting indra service")
 
 app = default_app()
 app.config['verbose'] = arg.verbose

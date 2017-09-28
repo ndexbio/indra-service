@@ -1,7 +1,7 @@
 __author__ = 'dexter'
 
 import argparse
-from bottle import route, run, template, default_app, request, post, abort,debug, Bottle
+from bottle import route, run, template, default_app, request, debug
 import ndex.client as nc
 import json
 import bel_utils as bu
@@ -53,7 +53,7 @@ def bel_gem_installed():
             return True
         else:
             return False
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/hello/<name>')
@@ -64,7 +64,7 @@ def index(name):
             return template('<b>This is the test method saying Hello, {{name}} verbosely</b>!', name=name)
         else:
             return template('<b>Hello {{name}}</b>!', name=name)
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/status')
@@ -76,7 +76,7 @@ def status():
         rss_limit = 500000000
         if q:
             if type(q) is str:
-                rss_limit = long(q)
+                rss_limit = int(q)
             else:
                 rss_limit = q
         result = {"time": "time tbd"}
@@ -108,14 +108,14 @@ def status():
         # return the status
         return result
 
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/bel_gem_installed')
 def check_bel_gem():
     try:
         return {"content": str(bu.bel_gem_installed())}
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/inf')
@@ -123,7 +123,7 @@ def inf():
     try:
         out = subprocess.check_output(["gem", "list"])
         return template(out)
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 # GET the network summary
@@ -132,7 +132,7 @@ def get_network_summary(networkId):
     try:
         ndex = app.config.get('ndex')
         return ndex.get_network_summary(networkId)
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/network/<network_id>/asBELscript/query', method='GET')
@@ -145,7 +145,7 @@ def run_bel_script_query_get(network_id):
             return {"content": bel_script}
         else:
             return {"content": ''}
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/network/<network_id>/asBELscript/query', method='POST')
@@ -160,7 +160,7 @@ def run_bel_script_query(network_id):
             return {"content": bel_script}
         else:
             return {"content": ''}
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/network/<network_id>/asBELRDF/query', method='GET')
@@ -175,7 +175,7 @@ def run_bel_script_query_get(network_id):
             return {"content": rdf}
         else:
             return {"content": ''}
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
 
 @route('/network/<network_id>/asBELRDF/query', method='POST')
@@ -191,10 +191,8 @@ def run_bel_script_query(network_id):
             return {"content": rdf}
         else:
             return {"content": ''}
-    except RuntimeError as re:
+    except Exception as re:
         return {"error": True, "message": re.message}
-    except Exception as e:
-        return {'error': True, 'message': e.message}
 
 run(app, host='0.0.0.0', port=8011)
 

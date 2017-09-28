@@ -193,6 +193,8 @@ def run_bel_script_query(network_id):
             return {"content": ''}
     except RuntimeError as re:
         return {"error": True, "message": re.message}
+    except Exception as e:
+        return {'error': True, 'message': e.message}
 
 run(app, host='0.0.0.0', port=8011)
 

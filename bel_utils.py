@@ -174,7 +174,10 @@ def bel_script_to_rdf(bel_script):
 
     with open('tmp.rdf', 'wt') as fh:
         start_time = time.time()
-        subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
+        #subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
+
+        output = subprocess.check_output(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL, timeout=20)
+
         end_time = time.time()
         print "converted in %s" % ((end_time - start_time))
 

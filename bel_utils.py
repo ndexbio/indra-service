@@ -12,6 +12,7 @@ import os
 import copy
 import ndex.client as nc
 import time
+import uuid
 
 def bel_gem_installed():
     try:
@@ -159,10 +160,14 @@ BEL2RDFPATH = '/home/dwelker/.gem/ruby/2.0.0/bin/bel2rdf'
 RUBYPATH = "/usr/bin/ruby2.0"
 
 def bel_script_to_rdf(bel_script):
-    with open('tmp.bel', 'wt') as fh:
+    uid = str(uuid.uuid4())
+    tmp_bel = 'tmp' + uid + '.bel'
+    tmp_rdf = 'tmp' + uid + '.rdf'
+
+    with open(tmp_bel, 'wt') as fh:
         fh.write(bel_script)
 
-    bel2rdf_cmd = "bel bel2rdf --bel tmp.bel > tmp.rdf"
+    bel2rdf_cmd = "bel bel2rdf --bel " + tmp_bel + " > " + tmp_rdf
 
     #bel2rdf_cmd = "%s %s --bel tmp.bel > tmp.rdf" % (RUBYPATH, BEL2RDFPATH)
 
@@ -172,7 +177,7 @@ def bel_script_to_rdf(bel_script):
 
     DEVNULL = open(os.devnull, 'wb')
 
-    with open('tmp.rdf', 'wt') as fh:
+    with open(tmp_rdf, 'wt') as fh:
         start_time = time.time()
         subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
 
@@ -182,11 +187,14 @@ def bel_script_to_rdf(bel_script):
         print "converted in %s" % ((end_time - start_time))
 
     # change formatting from original bel2rdf output
-    with open('tmp.rdf', 'rt') as fh:
+    with open(tmp_rdf, 'rt') as fh:
         rdf = fh.read()
     res = re.findall(r'_:([^ ]+)', rdf)
     for r in res:
         rdf = rdf.replace(r, r.replace('-', ''))
+        
+    os.remove(tmp_bel)
+    os.remove(tmp_rdf)
     return rdf
 
 class BelCx:

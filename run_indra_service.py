@@ -108,7 +108,7 @@ def status():
         # check memory use
         this_process = psutil.Process(os.getpid())
         rss = this_process.memory_info().rss
-        result['rss'] = rss
+        result['message']['rss'] = rss
         if rss > rss_limit:
             result['message']['memory_status'] = "high memory usage"
             result['message']['status'] = 'TROUBLE'

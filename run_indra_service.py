@@ -8,6 +8,7 @@ import bel_utils as bu
 import subprocess
 import os
 import psutil
+import time
 
 
 parser = argparse.ArgumentParser(description='run the indra service')
@@ -54,7 +55,7 @@ def bel_gem_installed():
         else:
             return False
     except Exception as re:
-        return {"error": True, "message": re.message}
+        return {"ERROR": True, "message": re.message}
 
 @route('/hello/<name>')
 def index(name):
@@ -74,12 +75,16 @@ def status():
 
         engine = app.config.get('engine')
         rss_limit = 500000000
+        start = time.time()
+        result = {'time': start}
+        result['status'] = 'OK'
+
         if q:
             if type(q) is str:
                 rss_limit = int(q)
             else:
                 rss_limit = q
-        result = {"time": "time tbd"}
+
         large_corpus_uuid = "9ea3c170-01ad-11e5-ac0f-000c29cb28fb"
 
         gem_installed = bel_gem_installed()
@@ -97,6 +102,7 @@ def status():
                 result["bel_rdf"] = "DONE"
         else:
             result["bel_query"] = "FAILED"
+            result['status'] = 'TROUBLE'
 
         # check memory use
         this_process = psutil.Process(os.getpid())
@@ -104,6 +110,11 @@ def status():
         result['rss'] = rss
         if rss > rss_limit:
             result['memory_status'] = "high memory usage"
+            result['status'] = 'TROUBLE'
+
+
+        stop = time.time()
+        result['duration'] = stop - start
 
         # return the status
         return result

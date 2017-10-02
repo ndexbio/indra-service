@@ -117,6 +117,7 @@ def status():
         result['duration'] = stop - start
 
         # return the status
+        print(json.dumps(result))
         return result
 
     except Exception as re:

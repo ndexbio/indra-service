@@ -117,7 +117,7 @@ def status():
         result['duration'] = stop - start
 
         # return the status
-        return result
+        return json.dumps(result)
 
     except Exception as re:
         return {"error": True, "message": re.message}

@@ -76,8 +76,9 @@ def status():
         engine = app.config.get('engine')
         rss_limit = 500000000
         start = time.time()
-        result = {'time': start}
-        result['status'] = 'OK'
+        result = {}
+        result['message'] = {'time': start}
+        result['message']['status'] = 'OK'
 
         if q:
             if type(q) is str:
@@ -88,40 +89,39 @@ def status():
         large_corpus_uuid = "9ea3c170-01ad-11e5-ac0f-000c29cb28fb"
 
         gem_installed = bel_gem_installed()
-        result["bel_gem_installed"] = gem_installed
+        result['message']["bel_gem_installed"] = gem_installed
 
         # run a test query
         # NFKB1 neighborhood on BEL Large Corpus
         bel_script = engine.bel_neighborhood_query(large_corpus_uuid, 'NFKB1')
 
         if bel_script:
-            result["bel_query"] = "OK"
+            result['message']["bel_query"] = "OK"
             if gem_installed:
                 # convert the result to RDF
                 bu.bel_script_to_rdf(bel_script)
-                result["bel_rdf"] = "DONE"
+                result['message']["bel_rdf"] = "DONE"
         else:
-            result["bel_query"] = "FAILED"
-            result['status'] = 'TROUBLE'
+            result['message']["bel_query"] = "FAILED"
+            result['message']['status'] = 'TROUBLE'
 
         # check memory use
         this_process = psutil.Process(os.getpid())
         rss = this_process.memory_info().rss
         result['rss'] = rss
         if rss > rss_limit:
-            result['memory_status'] = "high memory usage"
-            result['status'] = 'TROUBLE'
-
+            result['message']['memory_status'] = "high memory usage"
+            result['message']['status'] = 'TROUBLE'
 
         stop = time.time()
-        result['duration'] = stop - start
+        result['message']['duration'] = stop - start
 
         # return the status
         print(json.dumps(result))
         return result
 
     except Exception as re:
-        return {"error": True, "message": re.message}
+        return {'message': {"error": True, "message": re.message}}
 
 @route('/bel_gem_installed')
 def check_bel_gem():

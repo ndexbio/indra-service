@@ -13,6 +13,7 @@ import copy
 import ndex.client as nc
 import time
 import uuid
+import psutil
 
 def bel_gem_installed():
     try:
@@ -179,7 +180,14 @@ def bel_script_to_rdf(bel_script):
 
     with open(tmp_rdf, 'wt') as fh:
         start_time = time.time()
-        subprocess.call(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
+        p = psutil.Popen(bel2rdf_cmd.split(' '), stdout=fh, stderr=DEVNULL)
+        print("bel2rdf starting with pid " + str(p.pid))
+        SLICE_IN_SECONDS = 3
+        while p.poll() == None:
+            print("be2rdf:" + str(p.pid) + " usage statistcs:")
+            print("cpu usage: " + str(p.cpu_times()))
+            print("memory usage: " + str(p.memory_info()))
+            time.sleep(SLICE_IN_SECONDS)
 
         #output = subprocess.check_output(bel2rdf_cmd.split(' '), stderr=DEVNULL)
 
